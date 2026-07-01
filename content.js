@@ -314,21 +314,34 @@
     let ext = 'cpp';
 
     if (submissionData && submissionData.submissionId) {
-      const codeRes = await new Promise(resolve =>
-        chrome.runtime.sendMessage({
-          action: 'getSubmissionCode',
-          contestId: submissionData.contestId || problemInfo?.contestId,
-          submissionId: submissionData.submissionId
-        }, resolve)
-      );
-
-      if (codeRes && codeRes.success) {
-        code = codeRes.code;
-        ext = submissionData.ext || 'cpp';
-      } else {
-        showStatus('cfg-status',
-          `Could not fetch code: ${codeRes ? codeRes.error : 'Unknown error'}`,
-          'error');
+      const cId = submissionData.contestId || problemInfo?.contestId;
+      const sId = submissionData.submissionId;
+      const url = `https://codeforces.com/contest/${cId}/submission/${sId}`;
+      
+      try {
+        const r = await fetch(url);
+        const html = await r.text();
+        const match = html.match(/<pre[^>]*id="program-source-text"[^>]*>([\s\S]*?)<\/pre>/i);
+        
+        if (match) {
+          const txt = match[1]
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .replace(/&#x2F;/g, '/');
+          
+          code = txt;
+          ext = submissionData.ext || 'cpp';
+        } else {
+          showStatus('cfg-status', 'Could not extract source code. Make sure you are logged in to Codeforces.', 'error');
+          pushBtn.disabled = false;
+          btnText.textContent = 'Push Solution';
+          return;
+        }
+      } catch (err) {
+        showStatus('cfg-status', `Fetch error: ${err.toString()}`, 'error');
         pushBtn.disabled = false;
         btnText.textContent = 'Push Solution';
         return;
