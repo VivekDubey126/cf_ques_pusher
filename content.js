@@ -111,7 +111,7 @@
           </div>
 
           <!-- Concept folder mode -->
-          <div class="cfg-section-label">📁 Concept / Topic Folder</div>
+          <div class="cfg-section-label">Concept / Topic Folder</div>
           <div class="cfg-folder-mode">
             <label class="cfg-radio-label" id="cfg-radio-new-label">
               <input type="radio" name="folderMode" value="new" id="cfg-radio-new" checked>
@@ -146,7 +146,7 @@
           </div>
 
           <!-- Commit message -->
-          <div class="cfg-section-label" style="margin-top:14px">✏️ Commit Message <span style="font-weight:400;color:#8b949e">(optional)</span></div>
+          <div class="cfg-section-label" style="margin-top:14px">Commit Message <span style="font-weight:400;color:#8b949e">(optional)</span></div>
           <input type="text" id="cfg-commit-msg" class="cfg-input" placeholder="Auto-generated if empty"/>
 
           <!-- Status area -->
@@ -156,7 +156,7 @@
         <div class="cfg-modal-footer">
           <button class="cfg-btn-secondary" id="cfg-cancel-btn">Cancel</button>
           <button class="cfg-btn-primary" id="cfg-push-confirm-btn">
-            <span id="cfg-push-btn-text">🚀 Push Solution</span>
+            <span id="cfg-push-btn-text">Push Solution</span>
           </button>
         </div>
       </div>
@@ -217,7 +217,7 @@
     const settings = await getSettings();
 
     if (!settings.githubToken || !settings.githubRepo) {
-      showStatus('cfg-status', '⚠️ GitHub settings not configured. Click the extension icon to set up.', 'warn');
+      showStatus('cfg-status', 'GitHub settings not configured. Click the extension icon to set up.', 'warn');
     }
 
     if (settings.cfHandle && problemInfo) {
@@ -227,7 +227,7 @@
       // 8-second timeout so it never hangs forever
       const fetchTimeout = setTimeout(() => {
         if (!submissionData) {
-          metaEl.textContent = '⚠️ Submission fetch timed out. You can still push if code was already loaded.';
+          metaEl.textContent = 'Submission fetch timed out. You can still push if code was already loaded.';
           metaEl.style.color = '#d29922';
         }
       }, 8000);
@@ -250,13 +250,13 @@
             commitInput.placeholder = `[CF] ${problemInfo.contestId}${problemInfo.problemIndex} - ${res.problemName}`;
           }
         } else {
-          metaEl.textContent = '❌ ' + (res ? res.error : 'No response from background');
+          metaEl.textContent = (res ? res.error : 'No response from background');
           metaEl.style.color = '#f85149';
           metaEl.style.fontSize = '12px';
         }
       });
     } else if (!settings.cfHandle) {
-      document.getElementById('cfg-problem-meta').textContent = 'ℹ️ Set your CF handle in extension settings.';
+      document.getElementById('cfg-problem-meta').textContent = 'Set your CF handle in extension settings.';
     }
 
     // ── Push button ──
@@ -279,7 +279,7 @@
     const statusEl = document.getElementById('cfg-status');
 
     if (!settings.githubToken || !settings.githubRepo) {
-      showStatus('cfg-status', '❌ GitHub token/repo not set. Open extension popup to configure.', 'error');
+      showStatus('cfg-status', 'GitHub token/repo not set. Open extension popup to configure.', 'error');
       return;
     }
 
@@ -289,7 +289,7 @@
     if (mode === 'new') {
       concept = document.getElementById('cfg-new-folder-input').value.trim();
       if (!concept) {
-        showStatus('cfg-status', '⚠️ Please enter a concept folder name, or choose "No folder".', 'warn');
+        showStatus('cfg-status', 'Please enter a concept folder name, or choose "No folder".', 'warn');
         return;
       }
     } else if (mode === 'existing') {
@@ -306,7 +306,7 @@
 
     // Disable button and show loading
     pushBtn.disabled = true;
-    btnText.textContent = '⏳ Fetching code…';
+    btnText.textContent = 'Fetching code...';
     statusEl.style.display = 'none';
 
     // Fetch source code
@@ -327,22 +327,22 @@
         ext = submissionData.ext || 'cpp';
       } else {
         showStatus('cfg-status',
-          `❌ Could not fetch code: ${codeRes ? codeRes.error : 'Unknown error'}`,
+          `Could not fetch code: ${codeRes ? codeRes.error : 'Unknown error'}`,
           'error');
         pushBtn.disabled = false;
-        btnText.textContent = '🚀 Push Solution';
+        btnText.textContent = 'Push Solution';
         return;
       }
     } else {
       showStatus('cfg-status',
-        '❌ No accepted submission found. Make sure your CF handle is set and you have an accepted submission for this problem.',
+        'No accepted submission found. Make sure your CF handle is set and you have an accepted submission for this problem.',
         'error');
       pushBtn.disabled = false;
-      btnText.textContent = '🚀 Push Solution';
+      btnText.textContent = 'Push Solution';
       return;
     }
 
-    btnText.textContent = '⏳ Pushing to GitHub…';
+    btnText.textContent = 'Pushing to GitHub...';
 
     // Push to GitHub
     const pushRes = await new Promise(resolve =>
@@ -361,8 +361,8 @@
     );
 
     pushBtn.disabled = false;
-    btnText.textContent = '🚀 Push Solution';
-
+    btnText.textContent = 'Push Solution';
+ 
     if (pushRes && pushRes.success) {
       // Save concept to local storage for future autocomplete
       if (concept) {
@@ -375,7 +375,7 @@
         });
       }
       showStatus('cfg-status',
-        `✅ Pushed to <strong>${pushRes.filePath}</strong> — <a href="${pushRes.url}" target="_blank">View on GitHub ↗</a>`,
+        `Pushed to <strong>${pushRes.filePath}</strong> — <a href="${pushRes.url}" target="_blank">View on GitHub ↗</a>`,
         'success');
       const floatBtn = document.getElementById('cfg-push-btn');
       if (floatBtn) {
@@ -384,7 +384,7 @@
       }
     } else {
       showStatus('cfg-status',
-        `❌ Push failed: ${pushRes ? pushRes.error : 'No response from background'}`,
+        `Push failed: ${pushRes ? pushRes.error : 'No response from background'}`,
         'error');
     }
   }

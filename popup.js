@@ -46,32 +46,32 @@ saveBtn.addEventListener('click', () => {
 
   // Validation
   if (!token) {
-    showStatus('⚠️ Please enter your GitHub Personal Access Token.', 'error');
+    showStatus('Please enter your GitHub Personal Access Token.', 'error');
     tokenInput.focus();
     return;
   }
   if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
-    showStatus('⚠️ Token looks invalid. It should start with ghp_ or github_pat_', 'error');
+    showStatus('Token looks invalid. It should start with ghp_ or github_pat_', 'error');
     return;
   }
   if (!repo || !repo.includes('/')) {
-    showStatus('⚠️ Repo should be in the format username/repo-name', 'error');
+    showStatus('Repo should be in the format username/repo-name', 'error');
     repoInput.focus();
     return;
   }
   if (!handle) {
-    showStatus('⚠️ CF handle is required to auto-fetch submissions.', 'error');
+    showStatus('CF handle is required to auto-fetch submissions.', 'error');
     handleInput.focus();
     return;
   }
 
-  saveBtnText.textContent = 'Saving…';
+  saveBtnText.textContent = 'Saving...';
   saveBtn.disabled = true;
 
   chrome.storage.local.set({ githubToken: token, githubRepo: repo, cfHandle: handle }, () => {
     saveBtn.disabled = false;
     saveBtnText.textContent = 'Save Settings';
-    showStatus('✅ Settings saved! Head to a CF problem page and click "Push to GitHub".', 'success');
+    showStatus('Settings saved! Head to a CF problem page and click "Push to GitHub".', 'success');
   });
 });
 
@@ -80,17 +80,17 @@ const testBtn     = document.getElementById('testBtn');
 const testBtnText = document.getElementById('test-btn-text');
 
 testBtn.addEventListener('click', () => {
-  testBtnText.textContent = '⏳ Testing…';
+  testBtnText.textContent = 'Testing...';
   testBtn.disabled = true;
 
   chrome.runtime.sendMessage({ action: 'testConnection' }, (res) => {
     testBtn.disabled = false;
-    testBtnText.textContent = '🔌 Test Connection';
+    testBtnText.textContent = 'Test Connection';
     if (res && res.success) {
-      showStatus(`✅ Connected! Repo: ${res.repoFullName} (${res.private ? 'private' : 'public'})`, 'success');
+      showStatus(`Connected! Repo: ${res.repoFullName} (${res.private ? 'private' : 'public'})`, 'success');
     } else {
       const status = res && res.status ? ` [HTTP ${res.status}]` : '';
-      showStatus(`❌${status} ${res ? res.error : 'No response'}`, 'error');
+      showStatus(`Connection failed:${status} ${res ? res.error : 'No response'}`, 'error');
     }
   });
 });
