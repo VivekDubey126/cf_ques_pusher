@@ -1,11 +1,11 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Premium Royal Glassmorphism UI
+   Premium Cyberpunk Glassmorphism UI
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* ── Floating Push Button (Royal Accent) ────────────────────────────────── */
+/* ── Floating Push Button (Cyberpunk Glow) ────────────────────────────────── */
 .cfg-push-btn {
   position: fixed;
   bottom: 32px;
@@ -14,81 +14,92 @@
   display: flex;
   align-items: center;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #c5a880, #8c6d3f);
-  color: #0c0f14;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50px;
-  font-family: 'Outfit', system-ui, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 8px 32px rgba(140, 109, 63, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  letter-spacing: 0.5px;
+  background: rgba(6, 9, 15, 0.7);
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+  border-radius: 4px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 5px rgba(0, 240, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 .cfg-push-btn svg {
-  fill: #0c0f14;
+  fill: #00f0ff;
+  transition: fill 0.25s;
 }
 
 .cfg-push-btn:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 12px 40px rgba(140, 109, 63, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
-  background: linear-gradient(135deg, #d8bc93, #a07e4d);
+  background: #00f0ff;
+  color: #06090f;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.cfg-push-btn:hover svg {
+  fill: #06090f;
 }
 
 .cfg-push-btn:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: translateY(0);
 }
 
 .cfg-push-btn.cfg-pushed {
-  background: linear-gradient(135deg, #1e293b, #0f172a) !important;
-  color: #c5a880 !important;
-  border: 1px solid rgba(197, 168, 128, 0.3) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+  background: rgba(255, 0, 85, 0.1) !important;
+  color: #ff0055 !important;
+  border-color: #ff0055 !important;
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.4) !important;
 }
 
 .cfg-push-btn.cfg-pushed svg {
-  fill: #c5a880 !important;
+  fill: #ff0055 !important;
 }
 
-/* ── Modal Overlay (Frosted Glass backdrop) ────────────────────────────── */
+/* ── Modal Overlay (Heavy Blur) ────────────────────────────────────────── */
 #cfg-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: rgba(6, 8, 12, 0.5);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: rgba(3, 5, 8, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: cfg-overlay-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cfg-overlay-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cfg-overlay-in {
-  from { opacity: 0; backdrop-filter: blur(0px); }
-  to   { opacity: 1; backdrop-filter: blur(16px); }
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to   { opacity: 1; backdrop-filter: blur(20px); }
 }
 
-/* ── Modal Card (Elegant Frosted Glass + Golden Border) ────────────────── */
+/* ── Modal Card (Tech grid structure & Neon Glow) ─────────────────────── */
 .cfg-modal {
   width: 480px;
   max-width: calc(100vw - 32px);
   max-height: calc(100vh - 48px);
   overflow-y: auto;
-  background: rgba(15, 18, 25, 0.75);
-  border: 1px solid rgba(197, 168, 128, 0.25);
-  border-radius: 20px;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05);
-  font-family: 'Outfit', system-ui, sans-serif;
-  color: #f1f5f9;
-  animation: cfg-modal-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(6, 9, 15, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-left: 3px solid #00f0ff;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.08);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: #cbd5e1;
+  animation: cfg-modal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
 }
 
 @keyframes cfg-modal-in {
-  from { opacity: 0; transform: scale(0.95) translateY(24px); }
+  from { opacity: 0; transform: scale(0.96) translateY(15px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
@@ -97,60 +108,60 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 24px 24px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 24px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+  background: rgba(255, 255, 255, 0.01);
 }
 
 .cfg-modal-logo {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #c5a880, #8c6d3f);
-  border-radius: 12px;
+  background: rgba(0, 240, 255, 0.07);
+  border: 1px solid #00f0ff;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(140, 109, 63, 0.2);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
 .cfg-modal-logo svg {
-  fill: #0c0f14;
+  fill: #00f0ff;
 }
 
 .cfg-modal-title {
-  margin: 0 0 3px;
-  font-size: 19px;
-  font-weight: 600;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
   color: #ffffff;
-  line-height: 1.2;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .cfg-modal-subtitle {
-  margin: 0;
-  font-size: 12px;
-  color: #94a3b8;
-  font-weight: 300;
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #00f0ff;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
 }
 
 .cfg-modal-close {
   margin-left: auto;
   background: none;
-  border: none;
-  color: #64748b;
-  font-size: 20px;
+  border: 1px solid rgba(255, 0, 85, 0.3);
+  color: #ff0055;
+  font-size: 14px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
   transition: all 0.2s;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .cfg-modal-close:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: #ff0055;
   color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
 }
 
 /* ── Modal Body ────────────────────────────────────────────────────────── */
@@ -163,30 +174,30 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  background: rgba(0, 240, 255, 0.02);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  border-radius: 6px;
   padding: 14px 16px;
   margin-bottom: 20px;
 }
 
 .cfg-problem-badge {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  color: #c5a880;
-  border: 1px solid rgba(197, 168, 128, 0.3);
+  background: rgba(0, 240, 255, 0.08);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 8px;
-  white-space: nowrap;
-  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 .cfg-problem-name {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.4;
+  letter-spacing: 0.3px;
 }
 
 .cfg-problem-meta {
@@ -197,12 +208,13 @@
 
 .cfg-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   padding: 3px 8px;
-  border-radius: 5px;
+  border-radius: 4px;
   margin-right: 6px;
 }
 
@@ -210,10 +222,11 @@
 .cfg-section-label {
   font-size: 11px;
   font-weight: 600;
-  color: #c5a880;
+  color: #00f0ff;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin-bottom: 12px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* ── Folder Mode Radios ────────────────────────────────────────────────── */
@@ -229,11 +242,11 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.01);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   color: #94a3b8;
   transition: all 0.2s ease;
@@ -241,15 +254,16 @@
 }
 
 .cfg-radio-label:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(197, 168, 128, 0.2);
+  background: rgba(0, 240, 255, 0.03);
+  border-color: rgba(0, 240, 255, 0.2);
   color: #ffffff;
 }
 
 .cfg-radio-label:has(input:checked) {
-  border-color: rgba(197, 168, 128, 0.6);
-  background: rgba(197, 168, 128, 0.08);
+  border-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.06);
   color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
 }
 
 .cfg-radio-label input[type="radio"] {
@@ -257,42 +271,42 @@
 }
 
 .cfg-radio-custom {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   flex-shrink: 0;
-  transition: all 0.2s;
   position: relative;
 }
 
 .cfg-radio-label:has(input:checked) .cfg-radio-custom {
-  border-color: #c5a880;
-  background: radial-gradient(circle, #c5a880 40%, transparent 50%);
+  border-color: #00f0ff;
+  background: radial-gradient(circle, #00f0ff 40%, transparent 50%);
+  box-shadow: 0 0 8px #00f0ff;
 }
 
-/* ── Inputs & Selects (Frosted Fields) ─────────────────────────────────── */
+/* ── Inputs & Selects (Cyberpunk Fields) ─────────────────────────────── */
 .cfg-input, .cfg-select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
+  background: rgba(6, 9, 15, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 4px;
   color: #ffffff;
-  font-family: inherit;
-  font-size: 13.5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
   padding: 11px 15px;
   outline: none;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .cfg-input:focus, .cfg-select:focus {
-  border-color: rgba(197, 168, 128, 0.6);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.15);
+  border-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.02);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
 }
 
-.cfg-input::placeholder { color: #475569; }
+.cfg-input::placeholder { color: #334155; }
 
 /* ── Suggestions dropdown ─────────────────────────────────────────────── */
 .cfg-suggestions {
@@ -300,25 +314,25 @@
   position: absolute;
   width: calc(480px - 48px);
   max-width: calc(100vw - 80px);
-  background: #0f1219;
-  border: 1px solid rgba(197, 168, 128, 0.3);
+  background: #06090f;
+  border: 1px solid #00f0ff;
   border-top: none;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 4px 4px;
   z-index: 10;
   max-height: 140px;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.8);
 }
 
 .cfg-suggestion-item {
   padding: 10px 15px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   color: #94a3b8;
   cursor: pointer;
-  transition: all 0.1s;
 }
 .cfg-suggestion-item:hover {
-  background: rgba(197, 168, 128, 0.1);
+  background: rgba(0, 240, 255, 0.1);
   color: #ffffff;
 }
 
@@ -326,46 +340,48 @@
 .cfg-select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2364748b'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2300f0ff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 40px;
 }
 .cfg-select option {
-  background: #0d1017;
+  background: #06090f;
   color: #ffffff;
 }
 
-/* ── Status Messages ───────────────────────────────────────────────────── */
+/* ── Status Messages (Neon Warnings/Errors) ───────────────────────────── */
 .cfg-status {
   margin-top: 18px;
   padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 13.5px;
+  border-radius: 4px;
+  font-size: 13px;
   line-height: 1.5;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .cfg-status a {
-  color: #c5a880;
-  text-decoration: none;
-  font-weight: 500;
+  color: #00f0ff;
+  text-decoration: underline;
 }
-.cfg-status a:hover { text-decoration: underline; }
 
 .cfg-status-success {
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #34d399;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
 }
 .cfg-status-error {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #f87171;
+  background: rgba(255, 0, 85, 0.05);
+  border: 1px solid #ff0055;
+  color: #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.1);
 }
 .cfg-status-warn {
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  color: #fbbf24;
+  background: rgba(255, 170, 0, 0.05);
+  border: 1px solid #ffa300;
+  color: #ffa300;
+  box-shadow: 0 0 10px rgba(255, 163, 0, 0.1);
 }
 
 /* ── Modal Footer ──────────────────────────────────────────────────────── */
@@ -374,54 +390,58 @@
   justify-content: flex-end;
   gap: 12px;
   padding: 20px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(0, 240, 255, 0.1);
+  background: rgba(255, 255, 255, 0.01);
 }
 
 .cfg-btn-secondary {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: #cbd5e1;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12.5px;
+  font-weight: 600;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   transition: all 0.2s;
 }
 .cfg-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  border-color: #ffffff;
   color: #ffffff;
 }
 
 .cfg-btn-primary {
-  background: linear-gradient(135deg, #c5a880, #8c6d3f);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #0c0f14;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12.5px;
+  font-weight: 700;
   padding: 10px 22px;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(140, 109, 63, 0.2);
-  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  transition: all 0.25s;
 }
 .cfg-btn-primary:hover {
-  background: linear-gradient(135deg, #d8bc93, #a07e4d);
-  box-shadow: 0 6px 20px rgba(140, 109, 63, 0.35);
-  transform: translateY(-1px);
+  background: #00f0ff;
+  color: #06090f;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
 }
 .cfg-btn-primary:disabled {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.02);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.05);
   color: #475569;
   cursor: not-allowed;
   box-shadow: none;
-  transform: none;
 }
 
 /* Scrollbar styling */
 .cfg-modal::-webkit-scrollbar { width: 6px; }
 .cfg-modal::-webkit-scrollbar-track { background: transparent; }
-.cfg-modal::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+.cfg-modal::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.2); border-radius: 3px; }
