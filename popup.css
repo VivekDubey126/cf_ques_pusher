@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — popup.css
-   Premium Cyberpunk Glassmorphism UI
+   Authentic Frosted Glassmorphism UI
 ───────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -9,8 +9,8 @@
 
 body {
   font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  background: #06090f;
-  color: #cbd5e1;
+  background: #0b0f19;
+  color: #e2e8f0;
   width: 320px;
   min-height: 100px;
 }
@@ -26,39 +26,37 @@ body {
   align-items: center;
   gap: 12px;
   padding: 18px 20px;
-  background: rgba(255, 255, 255, 0.01);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .popup-logo {
-  width: 38px;
-  height: 38px;
-  background: rgba(0, 240, 255, 0.07);
-  border: 1px solid #00f0ff;
-  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
 }
 
 .popup-logo svg {
-  fill: #00f0ff;
+  fill: #ffffff;
 }
 
 .popup-title {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 15.5px;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.2;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .popup-subtitle {
   font-size: 11px;
-  color: #00f0ff;
+  color: #94a3b8;
   margin-top: 2px;
   font-family: 'JetBrains Mono', monospace;
 }
@@ -72,12 +70,11 @@ body {
 .section-header {
   font-size: 11px;
   font-weight: 600;
-  color: #00f0ff;
+  color: #cbd5e1;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   margin-bottom: 12px;
   margin-top: 6px;
-  font-family: 'JetBrains Mono', monospace;
 }
 
 /* ── Field group ──────────────────────────────────────────────────────────── */
@@ -99,9 +96,9 @@ body {
 
 .field-input {
   width: 100%;
-  background: rgba(6, 9, 15, 0.6);
-  border: 1px solid rgba(0, 240, 255, 0.15);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
   color: #ffffff;
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
@@ -111,12 +108,12 @@ body {
 }
 
 .field-input:focus {
-  border-color: #00f0ff;
-  background: rgba(0, 240, 255, 0.02);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
 }
 
-.field-input::placeholder { color: #334155; }
+.field-input::placeholder { color: #475569; }
 
 .toggle-visibility {
   position: absolute;
@@ -130,17 +127,16 @@ body {
   display: flex;
   align-items: center;
 }
-.toggle-visibility:hover { color: #00f0ff; }
+.toggle-visibility:hover { color: #ffffff; }
 
 .field-hint {
   font-size: 11px;
   color: #94a3b8;
   margin-top: 5px;
   line-height: 1.4;
-  font-family: 'JetBrains Mono', monospace;
 }
-.field-hint a { color: #00f0ff; text-decoration: none; }
-.field-hint a:hover { text-decoration: underline; }
+.field-hint a { color: #ffffff; text-decoration: underline; }
+.field-hint a:hover { color: #e2e8f0; }
 .field-hint code {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 4px;
@@ -153,67 +149,65 @@ body {
 .status-msg {
   margin: 14px 0;
   padding: 10px 14px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 12.5px;
   line-height: 1.4;
+}
+.status-msg {
   font-family: 'JetBrains Mono', monospace;
 }
 .status-success {
-  background: rgba(0, 240, 255, 0.05);
-  border: 1px solid #00f0ff;
-  color: #00f0ff;
-  box-shadow: 0 0 8px rgba(0, 240, 255, 0.15);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34d399;
 }
 .status-error {
-  background: rgba(255, 0, 85, 0.05);
-  border: 1px solid #ff0055;
-  color: #ff0055;
-  box-shadow: 0 0 8px rgba(255, 0, 85, 0.15);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #f87171;
 }
 
 /* ── Action Buttons ───────────────────────────────────────────────────────── */
 .save-btn {
   width: 100%;
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid #00f0ff;
-  color: #00f0ff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   font-family: inherit;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 10px 0;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transition: all 0.25s ease;
   margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 .save-btn:hover {
-  background: #00f0ff;
-  color: #06090f;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.45);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
+.save-btn:active { transform: translateY(0); }
 
 /* ── Test connection button ────────────────────────────────────────────── */
 .test-btn {
   width: 100%;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
   font-family: inherit;
   font-size: 12.5px;
   font-weight: 600;
   padding: 9px 0;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 .test-btn:hover {
-  border-color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
   color: #ffffff;
 }
 
@@ -223,16 +217,15 @@ body {
   padding: 14px;
   background: rgba(255, 255, 255, 0.01);
   border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .how-title {
   font-size: 12px;
   font-weight: 600;
-  color: #00f0ff;
+  color: #cbd5e1;
   margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .how-list {
