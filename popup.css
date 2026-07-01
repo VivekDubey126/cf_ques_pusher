@@ -1,16 +1,19 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — popup.css
-   Authentic Premium Glassmorphism (Noise + Blur + Gradient)
+   Authentic Premium 3D Glassmorphism (Noise + Blur + Depth)
 ───────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  --glass-bg: linear-gradient(135deg, rgba(60, 60, 60, 0.15) 0%, rgba(10, 10, 10, 0.25) 100%);
-  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-border-top: rgba(255, 255, 255, 0.15);
-  --glass-border-left: rgba(255, 255, 255, 0.1);
+  --glass-bg: linear-gradient(135deg, rgba(80, 80, 80, 0.15) 0%, rgba(0, 0, 0, 0.3) 100%);
+  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  
+  /* 3D shadows for the popup panel */
+  --glass-shadow: 
+    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +33,7 @@ body {
   background: var(--glass-noise), var(--glass-bg);
   background-color: rgba(20, 20, 20, 0.8);
   min-height: 100vh;
+  box-shadow: var(--glass-shadow);
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
@@ -38,40 +42,44 @@ body {
   align-items: center;
   gap: 14px;
   padding: 20px 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5); /* Inner shadow effect for separator */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05); /* Highlight below separator */
 }
 
 .popup-logo {
-  width: 38px;
-  height: 38px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.3),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .popup-logo svg {
   fill: #ffffff;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
 }
 
 .popup-title {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.2;
   letter-spacing: -0.2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .popup-subtitle {
   font-size: 11.5px;
   color: #9ca3af;
   margin-top: 3px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* ── Body ─────────────────────────────────────────────────────────────────── */
@@ -82,12 +90,13 @@ body {
 /* ── Section header ───────────────────────────────────────────────────────── */
 .section-header {
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 600;
   color: #e5e7eb;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 14px;
   margin-top: 6px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* ── Field group ──────────────────────────────────────────────────────────── */
@@ -96,7 +105,7 @@ body {
 .field-label {
   display: block;
   font-size: 12.5px;
-  font-weight: 400;
+  font-weight: 500;
   color: #d1d5db;
   margin-bottom: 8px;
 }
@@ -109,24 +118,33 @@ body {
 
 .field-input {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
   color: #ffffff;
   font-family: inherit;
   font-size: 13.5px;
   padding: 12px 14px;
   outline: none;
   transition: all 0.3s ease;
+  /* Deep inset shadow */
+  box-shadow: 
+    inset 0 3px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .field-input:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+  /* Outer glow on focus */
+  box-shadow: 
+    inset 0 3px 8px rgba(0, 0, 0, 0.8),
+    0 0 0 3px rgba(255, 255, 255, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.field-input::placeholder { color: #6b7280; font-weight: 300; }
+.field-input::placeholder { color: #6b7280; font-weight: 400; }
 
 .toggle-visibility {
   position: absolute;
@@ -139,15 +157,19 @@ body {
   border-radius: 4px;
   display: flex;
   align-items: center;
+  transition: all 0.2s;
 }
-.toggle-visibility:hover { color: #ffffff; }
+.toggle-visibility:hover { 
+  color: #ffffff; 
+  background: rgba(255,255,255,0.05);
+}
 
 .field-hint {
   font-size: 11.5px;
   color: #9ca3af;
   margin-top: 6px;
   line-height: 1.4;
-  font-weight: 300;
+  font-weight: 400;
 }
 .field-hint a { color: #ffffff; text-decoration: underline; }
 .field-hint a:hover { color: #d1d5db; }
@@ -157,88 +179,102 @@ body {
   padding: 2px 5px;
   font-size: 10.5px;
   color: #e5e7eb;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1);
 }
 
-/* ── Status ───────────────────────────────────────────────────────────────── */
+/* ── Status (Recessed Panel) ──────────────────────────────────────────────── */
 .status-msg {
   margin: 16px 0;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 12.5px;
   line-height: 1.4;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 .status-success {
-  border-color: rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   color: #a7f3d0;
 }
 .status-error {
-  border-color: rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   color: #fca5a5;
 }
 
-/* ── Action Buttons ───────────────────────────────────────────────────────── */
+/* ── Action Buttons (Glossy 3D buttons) ───────────────────────────────────── */
 .save-btn {
   width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: none;
   color: #ffffff;
   font-family: inherit;
   font-size: 13.5px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 12px 0;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   margin-top: 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 .save-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
 }
-.save-btn:active { transform: translateY(0); }
+.save-btn:active { 
+  transform: translateY(1px); 
+  box-shadow: 
+    inset 0 4px 8px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
 
-/* ── Test connection button ────────────────────────────────────────────── */
+/* ── Test connection button (Subtle 3D) ───────────────────────────────────── */
 .test-btn {
   width: 100%;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   color: #d1d5db;
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
   padding: 10px 0;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 12px;
 }
 .test-btn:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* ── How it works ─────────────────────────────────────────────────────────── */
+/* ── How it works (Recessed box) ──────────────────────────────────────────── */
 .how-it-works {
   margin-top: 24px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 
+    inset 0 2px 6px rgba(0,0,0,0.5), 
+    0 1px 0 rgba(255,255,255,0.05);
 }
 
 .how-title {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: #e5e7eb;
   margin-bottom: 10px;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .how-list {
@@ -246,7 +282,7 @@ body {
   font-size: 12.5px;
   color: #9ca3af;
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
 }
 
-.how-list strong { color: #ffffff; font-weight: 500; }
+.how-list strong { color: #ffffff; font-weight: 600; }

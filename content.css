@@ -1,19 +1,23 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Authentic Premium Glassmorphism (Noise + Blur + Gradient)
+   Authentic Premium 3D Glassmorphism (Noise + Blur + Depth)
 ───────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-/* Base variables for the glass effect */
 :root {
-  --glass-bg: linear-gradient(135deg, rgba(60, 60, 60, 0.15) 0%, rgba(10, 10, 10, 0.25) 100%);
-  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-border-top: rgba(255, 255, 255, 0.15);
-  --glass-border-left: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  --glass-blur: blur(24px) saturate(150%);
+  /* The main glass material */
+  --glass-bg: linear-gradient(135deg, rgba(80, 80, 80, 0.15) 0%, rgba(0, 0, 0, 0.3) 100%);
+  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  
+  /* 3D shadows for the main panels */
+  --glass-shadow: 
+    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),   /* Strong top-left light catch */
+    inset -1px -1px 2px rgba(0, 0, 0, 0.6),            /* Bottom-right shadow inside */
+    0 25px 60px rgba(0, 0, 0, 0.8),                    /* Massive outer drop shadow */
+    0 0 0 1px rgba(255, 255, 255, 0.05);               /* Subtle hair-line outer edge */
+    
+  --glass-blur: blur(30px) saturate(160%);
 }
 
 /* ── Floating Push Button ────────────────────────────── */
@@ -25,34 +29,39 @@
   display: flex;
   align-items: center;
   padding: 14px 28px;
+  
   background: var(--glass-noise), var(--glass-bg);
-  background-color: rgba(20, 20, 20, 0.4);
+  background-color: rgba(20, 20, 20, 0.5);
   color: #ffffff;
-  border: var(--glass-border);
-  border-top-color: var(--glass-border-top);
-  border-left-color: var(--glass-border-left);
+  
+  border: none; /* Using shadows instead of border for 3D */
   border-radius: 50px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: var(--glass-shadow);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cfg-push-btn svg {
   fill: #ffffff;
   transition: transform 0.4s ease;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
 }
 
 .cfg-push-btn:hover {
-  background-color: rgba(40, 40, 40, 0.5);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  transform: translateY(-4px);
+  background-color: rgba(40, 40, 40, 0.6);
+  box-shadow: 
+    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.35),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.7),
+    0 30px 70px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .cfg-push-btn:hover svg {
@@ -60,18 +69,18 @@
 }
 
 .cfg-push-btn:active {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(0.98);
 }
 
 .cfg-push-btn.cfg-pushed {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
   color: #000000 !important;
-  text-shadow: none !important;
-  border-color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 10px 30px rgba(255,255,255,0.2) !important;
 }
 
 .cfg-push-btn.cfg-pushed svg {
   fill: #000000 !important;
+  filter: none;
 }
 
 /* ── Modal Overlay ────────────────────────────────── */
@@ -79,7 +88,7 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: rgba(0, 0, 0, 0.3);
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
@@ -93,29 +102,31 @@
   to   { opacity: 1; }
 }
 
-/* ── Modal Card (The main glass panel) ────────────────────────── */
+/* ── Modal Card (The main 3D glass panel) ────────────────────────── */
 .cfg-modal {
   width: 520px;
   max-width: calc(100vw - 40px);
   max-height: calc(100vh - 60px);
   overflow-y: auto;
+  
   background: var(--glass-noise), var(--glass-bg);
   background-color: rgba(15, 15, 15, 0.45);
-  border: var(--glass-border);
-  border-top-color: var(--glass-border-top);
-  border-left-color: var(--glass-border-left);
-  border-radius: 20px;
+  
+  border: none;
+  border-radius: 24px;
   box-shadow: var(--glass-shadow);
+  
   font-family: 'Inter', system-ui, sans-serif;
   color: #d1d5db;
+  
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   animation: cfg-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cfg-modal-in {
-  from { opacity: 0; transform: scale(0.95) translateY(20px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity: 0; transform: scale(0.92) translateY(30px) perspective(1000px) rotateX(5deg); }
+  to   { opacity: 1; transform: scale(1) translateY(0) perspective(1000px) rotateX(0deg); }
 }
 
 /* ── Modal Header ──────────────────────────────────────────────────────── */
@@ -124,47 +135,52 @@
   align-items: center;
   gap: 16px;
   padding: 30px 30px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5); /* Inner shadow effect for separator */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05); /* Highlight below separator */
 }
 
 .cfg-modal-logo {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.3),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .cfg-modal-logo svg {
   fill: #ffffff;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 .cfg-modal-title {
   margin: 0;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 600;
   color: #ffffff;
   letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .cfg-modal-subtitle {
   margin: 4px 0 0;
   font-size: 13px;
   color: #9ca3af;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .cfg-modal-close {
   margin-left: auto;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent;
+  border: none;
   color: #9ca3af;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 8px;
@@ -173,7 +189,7 @@
 .cfg-modal-close:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);
 }
 
 /* ── Modal Body ────────────────────────────────────────────────────────── */
@@ -181,62 +197,70 @@
   padding: 24px 30px;
 }
 
-/* ── Problem Card ──────────────────────────────────────────────────────── */
+/* ── Problem Card (Indented / Recessed effect) ─────────────────────────── */
 .cfg-problem-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 14px;
   padding: 16px 20px;
   margin-bottom: 24px;
+  /* Deep inset shadow to make it look carved out of the glass */
+  box-shadow: 
+    inset 0 4px 12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.08); 
 }
 
 .cfg-problem-badge {
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 6px 12px;
-  border-radius: 6px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  border-radius: 8px;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255,255,255,0.2),
+    0 4px 8px rgba(0,0,0,0.3);
 }
 
 .cfg-problem-name {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .cfg-problem-meta {
   font-size: 12px;
   color: #9ca3af;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .cfg-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   color: #d1d5db;
   font-size: 11px;
   padding: 4px 10px;
   border-radius: 4px;
   margin-right: 8px;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1);
 }
 
 /* ── Section Label ─────────────────────────────────────────────────────── */
 .cfg-section-label {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: #e5e7eb;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* ── Folder Mode Radios ────────────────────────────────────────────────── */
+/* ── Folder Mode Radios (3D buttons) ───────────────────────────────────── */
 .cfg-folder-mode {
   display: flex;
   gap: 12px;
@@ -249,15 +273,16 @@
   align-items: center;
   gap: 10px;
   padding: 12px 18px;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   color: #9ca3af;
   transition: all 0.3s ease;
   user-select: none;
+  /* Slightly recessed by default */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .cfg-radio-label:hover {
@@ -266,10 +291,12 @@
 }
 
 .cfg-radio-label:has(input:checked) {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.1);
+  /* Pops out when selected */
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
   color: #ffffff;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.3),
+    0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .cfg-radio-label input[type="radio"] {
@@ -279,31 +306,25 @@
 .cfg-radio-custom {
   width: 16px;
   height: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0,0,0,0.5);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
   transition: all 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .cfg-radio-label:has(input:checked) .cfg-radio-custom {
-  border-color: #ffffff;
-}
-
-.cfg-radio-label:has(input:checked) .cfg-radio-custom::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
   background: #ffffff;
-  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.3);
 }
 
-/* ── Inputs & Selects (Glass Fields) ──────────────────────────────────── */
+/* ── Inputs & Selects (Deeply recessed fields) ────────────────────────── */
 .cfg-input, .cfg-select {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
   color: #ffffff;
   font-family: inherit;
   font-size: 14px;
@@ -311,29 +332,40 @@
   outline: none;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  /* Deep inset shadow */
+  box-shadow: 
+    inset 0 3px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .cfg-input:focus, .cfg-select:focus {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+  /* Add an outer glow when focused */
+  box-shadow: 
+    inset 0 3px 8px rgba(0, 0, 0, 0.8),
+    0 0 0 4px rgba(255, 255, 255, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.cfg-input::placeholder { color: #6b7280; font-weight: 300; }
+.cfg-input::placeholder { color: #6b7280; font-weight: 400; }
 
-/* ── Suggestions dropdown ─────────────────────────────────────────────── */
+/* ── Suggestions dropdown (Floating 3D panel) ─────────────────────────── */
 .cfg-suggestions {
   display: none;
   position: absolute;
   width: calc(100% - 60px);
   background: rgba(20, 20, 20, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-top: none;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 12px 12px;
   z-index: 10;
   max-height: 160px;
   overflow-y: auto;
   backdrop-filter: blur(20px);
+  box-shadow: 
+    0 15px 30px rgba(0,0,0,0.6),
+    inset 1px 0 0 rgba(255,255,255,0.05),
+    inset -1px -1px 0 rgba(255,255,255,0.05);
 }
 
 .cfg-suggestion-item {
@@ -362,15 +394,15 @@
   color: #ffffff;
 }
 
-/* ── Status Messages (Glass card styles) ──────────────────────────────── */
+/* ── Status Messages (Recessed panels) ────────────────────────────────── */
 .cfg-status {
   margin-top: 24px;
   padding: 16px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 13.5px;
   line-height: 1.5;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .cfg-status a {
@@ -379,15 +411,15 @@
 }
 
 .cfg-status-success {
-  border-color: rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   color: #a7f3d0;
 }
 .cfg-status-error {
-  border-color: rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   color: #fca5a5;
 }
 .cfg-status-warn {
-  border-color: rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   color: #fde68a;
 }
 
@@ -397,61 +429,75 @@
   justify-content: flex-end;
   gap: 16px;
   padding: 24px 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .cfg-btn-secondary {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   color: #d1d5db;
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
   padding: 12px 24px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s;
 }
 .cfg-btn-secondary:hover {
   background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1);
 }
 
 .cfg-btn-primary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top-color: rgba(255, 255, 255, 0.3);
+  /* Glossy 3D button */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: none;
   color: #ffffff;
   font-family: inherit;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 12px 28px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 .cfg-btn-primary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+    0 12px 28px rgba(0, 0, 0, 0.6);
   transform: translateY(-2px);
 }
 .cfg-btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 4px 8px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 .cfg-btn-primary:disabled {
-  background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   color: #6b7280;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+  text-shadow: none;
 }
 
 /* Scrollbar styling */
 .cfg-modal::-webkit-scrollbar { width: 8px; }
 .cfg-modal::-webkit-scrollbar-track { background: transparent; }
-.cfg-modal::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+.cfg-modal::-webkit-scrollbar-thumb { 
+  background: rgba(255, 255, 255, 0.15); 
+  border-radius: 4px; 
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);
+}
 .cfg-modal::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
