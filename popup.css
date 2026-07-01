@@ -1,9 +1,9 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — popup.css
-   Cinematic Starry Space Glassmorphism (Comfortaa + Montserrat)
+   Cinematic Starry Space Glassmorphism (Space Grotesk + Outfit)
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   --space-stars: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='stars'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' result='noise'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 9 -4 0 0 0 9 -4 0 0 0 9 -4 0 0 0 0 1' result='contrast'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23stars)'/%3E%3C/svg%3E");
@@ -27,7 +27,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   background: #111;
   color: #f1f5f9;
   width: 340px;
@@ -51,6 +51,12 @@ body::-webkit-scrollbar {
   border-left: var(--glass-border-left);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  animation: popup-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popup-fade-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
@@ -85,8 +91,8 @@ body::-webkit-scrollbar {
 }
 
 .popup-title {
-  font-family: 'Comfortaa', cursive, sans-serif;
-  font-size: 15px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
@@ -96,63 +102,55 @@ body::-webkit-scrollbar {
 }
 
 .popup-subtitle {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 11px;
-  color: #cbd5e1;
-  margin-top: 5px;
-  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  color: #cbd5e1;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  margin-top: 2px;
 }
 
-/* ── Body ─────────────────────────────────────────────────────────────────── */
-.popup-body {
-  padding: 20px 24px;
+/* ── Content Area ─────────────────────────────────────────────────────────── */
+.popup-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
 }
 
-/* ── Section header ───────────────────────────────────────────────────────── */
-.section-header {
-  font-family: 'Comfortaa', cursive, sans-serif;
+/* ── Label ────────────────────────────────────────────────────────────────── */
+.cfg-label {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 11px;
-  font-weight: 700;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 14px;
-  margin-top: 6px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-}
-
-/* ── Field group ──────────────────────────────────────────────────────────── */
-.field-group { margin-bottom: 18px; }
-
-.field-label {
-  display: block;
-  font-size: 12px;
   font-weight: 600;
   color: #ffffff;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   margin-bottom: 8px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  display: block;
 }
 
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+/* ── Input Group ──────────────────────────────────────────────────────────── */
+.input-group {
+  margin-bottom: 20px;
 }
 
-.field-input {
+/* ── Text Input ───────────────────────────────────────────────────────────── */
+.cfg-input {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   color: #ffffff;
-  font-family: inherit;
-  font-size: 13.5px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
   font-weight: 500;
-  padding: 12px 14px;
+  padding: 12px 16px;
   outline: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 
@@ -160,176 +158,134 @@ body::-webkit-scrollbar {
     0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
-.field-input:focus {
+.cfg-input:focus {
   background: rgba(0, 0, 0, 0.55);
   border-color: rgba(100, 150, 255, 0.5);
   box-shadow: 
     inset 0 3px 10px rgba(0, 0, 0, 0.8),
-    0 0 0 3px rgba(100, 150, 255, 0.25),
+    0 0 0 2px rgba(100, 150, 255, 0.25),
     0 0 15px rgba(100, 150, 255, 0.3);
 }
 
-.field-input::placeholder { color: #94a3b8; font-weight: 500; }
-
-.toggle-visibility {
-  position: absolute;
-  right: 12px;
-  background: none;
-  border: none;
+.cfg-input::placeholder {
   color: #94a3b8;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s;
-}
-.toggle-visibility:hover { 
-  color: #ffffff; 
-  background: rgba(255,255,255,0.1);
-  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);
+  font-weight: 400;
 }
 
-.field-hint {
-  font-size: 11px;
-  color: #cbd5e1;
-  margin-top: 6px;
-  line-height: 1.4;
-  font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-}
-.field-hint a { color: #ffffff; text-decoration: underline; }
-.field-hint a:hover { color: #f1f5f9; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-.field-hint code {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 4px;
-  padding: 2px 5px;
-  font-size: 10.5px;
-  color: #e2e8f0;
-}
-
-/* ── Status (Neon etched panels) ──────────────────────────────────────────────── */
-.status-msg {
-  margin: 16px 0;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.4;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    inset 0 2px 8px rgba(0,0,0,0.6),
-    0 10px 25px rgba(0, 0, 0, 0.3);
-}
-.status-success {
-  border-top: 1px solid rgba(52, 211, 153, 0.6);
-  color: #a7f3d0;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 30px rgba(52, 211, 153, 0.15);
-}
-.status-error {
-  border-top: 1px solid rgba(248, 113, 113, 0.6);
-  color: #fecaca;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 30px rgba(248, 113, 113, 0.15);
-}
-
-/* ── Action Buttons (Reflective Gem Buttons) ───────────────────────────────────── */
-.save-btn {
+/* ── Primary Button ───────────────────────────────────────────────────────── */
+.cfg-btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.02) 100%);
   border: 1px solid rgba(255,255,255,0.25);
   border-top: 1px solid rgba(255,255,255,0.6);
   border-left: 1px solid rgba(255,255,255,0.35);
   color: #ffffff;
-  font-family: inherit;
-  font-size: 11px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 12px 0;
-  border-radius: 10px;
+  padding: 14px 20px;
+  border-radius: 12px;
   cursor: pointer;
   box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255,255,255,0.15),
+    0 10px 20px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(255,255,255,0.15),
     inset 1px 1px 2px rgba(255, 255, 255, 0.3);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-top: 8px;
-  text-shadow: 0 0 12px rgba(255,255,255,0.5);
+  text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
-.save-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 100%);
+
+.cfg-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 100%);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.7),
-    0 0 35px rgba(255,255,255,0.35),
+    0 15px 30px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(255,255,255,0.3),
     inset 1px 1px 3px rgba(255, 255, 255, 0.6);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
-.save-btn:active { 
-  transform: translateY(1px); 
+
+.cfg-btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
   background: rgba(255,255,255,0.05);
   box-shadow: 
     0 5px 10px rgba(0, 0, 0, 0.4),
     0 0 10px rgba(255,255,255,0.1);
 }
 
-/* ── Test connection button (Etched glass) ───────────────────────────────────── */
-.test-btn {
-  width: 100%;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #cbd5e1;
-  font-family: inherit;
+.cfg-btn-primary:disabled {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255,255,255,0.05);
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  text-shadow: none;
+}
+
+/* ── Status Messages ──────────────────────────────────────────────────────── */
+.cfg-status {
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+  display: none; /* hidden by default */
+}
+
+.cfg-status.show {
+  display: block;
+  animation: cfg-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cfg-fade-up {
+  from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.cfg-status a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cfg-status.success {
+  border-top: 1px solid rgba(52, 211, 153, 0.6);
+  color: #a7f3d0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(52, 211, 153, 0.1);
+}
+
+.cfg-status.error {
+  border-top: 1px solid rgba(248, 113, 113, 0.6);
+  color: #fecaca;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(248, 113, 113, 0.1);
+}
+
+.cfg-status.warn {
+  border-top: 1px solid rgba(251, 191, 36, 0.6);
+  color: #fde68a;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+/* ── Footer Link ──────────────────────────────────────────────────────────── */
+.popup-footer {
+  text-align: center;
+  padding-top: 10px;
+}
+.popup-footer a {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #64748b;
   font-size: 11px;
-  font-weight: 700;
+  text-decoration: none;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 10px 0;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  transition: color 0.3s ease;
 }
-.test-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  border-top: 1px solid rgba(255,255,255,0.25);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-/* ── How it works (Recessed etched plate) ──────────────────────────────────────────── */
-.how-it-works {
-  margin-top: 24px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  box-shadow: 
-    0 10px 25px rgba(0, 0, 0, 0.3),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.1);
-}
-
-.how-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
-
-.how-list {
-  padding-left: 18px;
-  font-size: 12.5px;
+.popup-footer a:hover {
   color: #cbd5e1;
-  line-height: 1.6;
-  font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
-
-.how-list strong { color: #ffffff; font-weight: 600; }

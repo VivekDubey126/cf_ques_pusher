@@ -1,9 +1,9 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Cinematic Starry Space Glassmorphism (High Readability & Refraction)
+   Cinematic Dribbble-Style Glassmorphism (Staggered Reveals & Premium Fonts)
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   /* Starry sky texture + Deep teal/aquamarine space gradient (made highly transparent for refraction) */
@@ -31,6 +31,23 @@
   --glass-blur: blur(35px) saturate(200%);
 }
 
+/* ── Cinematic Staggered Animations (Dribbble Style) ────────────────────── */
+@keyframes cfg-modal-in {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(40px) perspective(2000px) rotateX(15deg); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0) perspective(2000px) rotateX(0deg); 
+  }
+}
+
+@keyframes cfg-fade-up {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
 /* ── Floating Push Button ────────────────────────────── */
 .cfg-push-btn {
   position: fixed;
@@ -53,8 +70,8 @@
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   
-  font-family: 'Comfortaa', cursive, sans-serif;
-  font-size: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -103,7 +120,6 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  /* Darken the screen slightly, but do not blur it so the modal acts as a lens */
   background: rgba(5, 5, 10, 0.4);
   display: flex;
   align-items: center;
@@ -134,10 +150,10 @@
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: 'Outfit', sans-serif;
   color: #f1f5f9; 
   
-  animation: cfg-modal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cfg-modal-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   position: relative;
 }
 
@@ -157,7 +173,7 @@
   width: 50%; height: 100%;
   background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
   transform: skewX(-20deg);
-  animation: cfg-shine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cfg-shine 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none;
   border-radius: 28px;
 }
@@ -167,9 +183,23 @@
   100% { left: 200%; }
 }
 
-@keyframes cfg-modal-in {
-  from { opacity: 0; transform: scale(0.95) translateY(30px) perspective(1500px) rotateX(8deg); }
-  to   { opacity: 1; transform: scale(1) translateY(0) perspective(1500px) rotateX(0deg); }
+/* ── Staggered Children Animations ────────────────────────────────────── */
+.cfg-modal-header {
+  animation: cfg-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.cfg-modal-body > * {
+  animation: cfg-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cfg-modal-body > :nth-child(1) { animation-delay: 0.15s; }
+.cfg-modal-body > :nth-child(2) { animation-delay: 0.20s; }
+.cfg-modal-body > :nth-child(3) { animation-delay: 0.25s; }
+.cfg-modal-body > :nth-child(4) { animation-delay: 0.30s; }
+.cfg-modal-body > :nth-child(5) { animation-delay: 0.35s; }
+
+.cfg-modal-footer {
+  animation: cfg-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
 /* ── Modal Header ──────────────────────────────────────────────────────── */
@@ -207,23 +237,23 @@
 
 .cfg-modal-title {
   margin: 0;
-  font-family: 'Comfortaa', cursive, sans-serif;
-  font-size: 23px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   text-shadow: 0 2px 10px rgba(255,255,255,0.4);
 }
 
 .cfg-modal-subtitle {
   margin: 6px 0 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #cbd5e1;
-  font-weight: 600;
+  font-weight: 500;
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
@@ -271,11 +301,11 @@
 }
 
 .cfg-problem-badge {
-  font-family: 'Comfortaa', cursive, sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   letter-spacing: 0.1em;
   background: rgba(255,255,255,0.1);
   color: #ffffff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   padding: 8px 14px;
   border-radius: 10px;
@@ -286,8 +316,9 @@
 }
 
 .cfg-problem-name {
-  font-size: 16px;
-  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.4;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
@@ -301,7 +332,7 @@
 }
 
 .cfg-tag {
-  font-family: 'Comfortaa', cursive, sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   display: inline-block;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255,255,255,0.15);
@@ -316,9 +347,9 @@
 
 /* ── Section Label ──────────────────────────────────────── */
 .cfg-section-label {
-  font-family: 'Comfortaa', cursive, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
   color: #ffffff;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -345,8 +376,9 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Outfit', sans-serif;
   
   color: #e2e8f0; 
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
@@ -403,8 +435,8 @@
   border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 14px;
   color: #ffffff;
-  font-family: inherit;
-  font-size: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
   font-weight: 500;
   padding: 16px 20px;
   outline: none;
@@ -424,7 +456,7 @@
     0 0 15px rgba(100, 150, 255, 0.3);
 }
 
-.cfg-input::placeholder { color: #94a3b8; font-weight: 500; }
+.cfg-input::placeholder { color: #94a3b8; font-weight: 400; }
 
 /* ── Suggestions dropdown ─────────────────────────── */
 .cfg-suggestions {
@@ -447,7 +479,8 @@
 
 .cfg-suggestion-item {
   padding: 14px 20px;
-  font-size: 13.5px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
   color: #f1f5f9;
   cursor: pointer;
   transition: all 0.2s;
@@ -478,6 +511,7 @@
   margin-top: 28px;
   padding: 18px 24px;
   border-radius: 14px;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
@@ -526,9 +560,9 @@
   background: rgba(0,0,0,0.2);
   border: 1px solid rgba(255,255,255,0.08);
   color: #e2e8f0;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 14px 28px;
@@ -551,8 +585,8 @@
   border-top: 1px solid rgba(255,255,255,0.6);
   border-left: 1px solid rgba(255,255,255,0.35);
   color: #ffffff;
-  font-family: inherit;
-  font-size: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
