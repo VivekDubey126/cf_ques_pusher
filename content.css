@@ -1,35 +1,30 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Cinematic Refractive Glassmorphism (Ultra-Clear, High Blur)
+   Cinematic Refractive Glassmorphism (High Readability & Contrast Overhaul)
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Ultra-clear glass base */
-  --glass-bg: rgba(20, 20, 25, 0.1); 
+  /* Ultra-clear glass base with slightly darker backing for text contrast */
+  --glass-bg: rgba(10, 10, 12, 0.35); 
   
-  /* Cinematic light sweep across the surface */
-  --glass-reflection: linear-gradient(125deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.03) 15%, rgba(255,255,255,0) 100%);
+  /* Specular reflections and refraction effects */
+  --glass-reflection: linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 18%, rgba(255,255,255,0) 100%);
+  --glass-refraction: linear-gradient(220deg, rgba(80, 150, 255, 0.12) 0%, rgba(250, 80, 255, 0.06) 100%);
+  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   
-  /* Subtle chromatic aberration (refraction tint) */
-  --glass-refraction: linear-gradient(220deg, rgba(80, 150, 255, 0.12) 0%, rgba(200, 80, 255, 0.06) 100%);
+  /* Razor-sharp edges */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.5);
+  --glass-border-left: 1px solid rgba(255, 255, 255, 0.2);
   
-  /* Extremely fine cinematic film grain */
-  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-  
-  /* Razor-sharp edge highlights */
-  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
-  --glass-border-top: 1px solid rgba(255, 255, 255, 0.4);
-  --glass-border-left: 1px solid rgba(255, 255, 255, 0.15);
-  
-  /* Ethereal glow and depth */
+  /* Ambient glowing shadows */
   --glass-shadow: 
-    0 40px 100px rgba(0, 0, 0, 0.7),                 /* Soft deep shadow */
-    0 0 80px rgba(100, 150, 255, 0.15),              /* Cinematic ambient glow */
-    inset 1px 1px 1px rgba(255, 255, 255, 0.3);      /* Inner rim highlight */
+    0 40px 100px rgba(0, 0, 0, 0.8),
+    0 0 80px rgba(100, 150, 255, 0.15),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.4);
     
-  /* Extreme blur for refraction */
   --glass-blur: blur(60px) saturate(220%);
 }
 
@@ -57,26 +52,27 @@
   
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cfg-push-btn svg {
   fill: #ffffff;
   transition: transform 0.4s ease;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
 }
 
 .cfg-push-btn:hover {
   background: 
     linear-gradient(125deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%),
-    var(--glass-refraction), var(--glass-noise), rgba(30, 40, 50, 0.1);
+    var(--glass-refraction), var(--glass-noise), rgba(30, 40, 50, 0.15);
   box-shadow: 
-    0 50px 120px rgba(0, 0, 0, 0.8),
-    0 0 100px rgba(100, 150, 255, 0.25),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+    0 50px 120px rgba(0, 0, 0, 0.9),
+    0 0 100px rgba(100, 150, 255, 0.3),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.7);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -84,15 +80,12 @@
   transform: rotate(15deg);
 }
 
-.cfg-push-btn:active {
-  transform: translateY(-1px) scale(0.98);
-}
-
 .cfg-push-btn.cfg-pushed {
   background: rgba(255, 255, 255, 0.95) !important;
   color: #000000 !important;
   box-shadow: 0 0 40px rgba(255,255,255,0.6) !important;
   border-color: #fff !important;
+  text-shadow: none;
 }
 
 .cfg-push-btn.cfg-pushed svg {
@@ -105,8 +98,7 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  /* Cinematic vignette */
-  background: radial-gradient(circle at center, rgba(10, 10, 15, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+  background: radial-gradient(circle at center, rgba(10, 10, 15, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
   backdrop-filter: blur(15px) saturate(120%);
   -webkit-backdrop-filter: blur(15px) saturate(120%);
   display: flex;
@@ -139,22 +131,21 @@
   -webkit-backdrop-filter: var(--glass-blur);
   
   font-family: 'Inter', system-ui, sans-serif;
-  color: #e2e8f0;
+  color: #f1f5f9; /* Bright high contrast text */
   
   animation: cfg-modal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
-/* HIDE UNNECESSARY SCROLLBAR */
 .cfg-modal::-webkit-scrollbar {
   display: none;
 }
 .cfg-modal {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Sweeping cinematic shine animation */
+/* Shine animation */
 .cfg-modal::before {
   content: '';
   position: absolute;
@@ -183,8 +174,8 @@
   align-items: center;
   gap: 18px;
   padding: 32px 36px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4); 
   position: relative;
   z-index: 2;
 }
@@ -192,9 +183,9 @@
 .cfg-modal-logo {
   width: 52px;
   height: 52px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.01) 100%);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-top: 1px solid rgba(255,255,255,0.5);
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.6);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -202,36 +193,36 @@
   flex-shrink: 0;
   box-shadow: 
     0 10px 20px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(255,255,255,0.1),
     inset 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .cfg-modal-logo svg {
   fill: #ffffff;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
 }
 
 .cfg-modal-title {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
-  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 .cfg-modal-subtitle {
   margin: 6px 0 0;
   font-size: 13.5px;
-  color: #94a3b8;
-  font-weight: 400;
+  color: #cbd5e1;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
 .cfg-modal-close {
   margin-left: auto;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.05);
-  color: #94a3b8;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #cbd5e1;
   font-size: 18px;
   cursor: pointer;
   padding: 10px 14px;
@@ -240,11 +231,10 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .cfg-modal-close:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  border-color: rgba(255,255,255,0.3);
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  transform: scale(1.05);
+  border-color: rgba(255,255,255,0.4);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
 /* ── Modal Body ────────────────────────────────────────────────────────── */
@@ -254,70 +244,74 @@
   z-index: 2;
 }
 
-/* ── Problem Card (Frosted Etched Glass) ─────────────────────────── */
+/* ── Problem Card (Frosted Etched Glass - Darker Backing for Text) ─────── */
 .cfg-problem-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   padding: 18px 24px;
   margin-bottom: 28px;
   box-shadow: 
-    0 10px 25px rgba(0, 0, 0, 0.3),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.1);
+    inset 0 4px 20px rgba(0, 0, 0, 0.5),
+    0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .cfg-problem-badge {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.1);
   color: #ffffff;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 8px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-top: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 1px 1px 1px rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,0.2);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .cfg-problem-name {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
   line-height: 1.4;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .cfg-problem-meta {
-  font-size: 12.5px;
-  color: #94a3b8;
+  font-size: 13px;
+  color: #cbd5e1;
   margin-top: 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
 .cfg-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255,255,255,0.05);
-  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #ffffff;
   font-size: 11px;
+  font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
-  margin-right: 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* ── Section Label ─────────────────────────────────────────────────────── */
+/* ── Section Label (Pure White, Strong Shadow) ─────────────────────────── */
 .cfg-section-label {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
   letter-spacing: 0.5px;
   margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* ── Folder Mode Radios (Floating Capsules) ───────────────────────────────────── */
+/* ── Folder Mode Radios (Contrast Enhancements) ────────────────────────── */
 .cfg-folder-mode {
   display: flex;
   gap: 14px;
@@ -330,34 +324,41 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.02);
+  
+  /* Darker background for contrast on unselected options */
+  background: rgba(0, 0, 0, 0.45); 
   border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
   cursor: pointer;
   font-size: 13.5px;
-  font-weight: 500;
-  color: #94a3b8;
+  font-weight: 600;
+  
+  /* Bright, readable text on dark glass backing */
+  color: #e2e8f0; 
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .cfg-radio-label:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.5);
 }
 
 .cfg-radio-label:has(input:checked) {
-  /* Pops out and glows when selected */
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-top: 1px solid rgba(255,255,255,0.5);
+  /* Ultra bright active state */
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(255,255,255,0.6);
   color: #ffffff;
   box-shadow: 
     0 10px 20px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(255,255,255,0.15),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+    0 0 20px rgba(255,255,255,0.2),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .cfg-radio-label input[type="radio"] {
@@ -367,13 +368,13 @@
 .cfg-radio-custom {
   width: 18px;
   height: 18px;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .cfg-radio-label:has(input:checked) .cfg-radio-custom {
@@ -382,44 +383,46 @@
   box-shadow: 0 0 15px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.3);
 }
 
-/* ── Inputs & Selects (Cinematic Glass Fields) ────────────────────────── */
+/* ── Inputs & Selects (High Contrast Glass Fields) ────────────────────── */
 .cfg-input, .cfg-select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Darker backing inside inputs to ensure typed text pops */
+  background: rgba(0, 0, 0, 0.5); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 14px;
   color: #ffffff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 14.5px;
+  font-weight: 500;
   padding: 16px 20px;
   outline: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   box-shadow: 
-    inset 0 2px 8px rgba(0, 0, 0, 0.3),
-    0 2px 5px rgba(0, 0, 0, 0.1);
+    inset 0 3px 10px rgba(0, 0, 0, 0.6),
+    0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .cfg-input:focus, .cfg-select:focus {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.65);
+  border-color: rgba(100, 150, 255, 0.5);
   box-shadow: 
-    inset 0 2px 8px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(100, 150, 255, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.3);
+    inset 0 3px 10px rgba(0, 0, 0, 0.8),
+    0 0 0 3px rgba(100, 150, 255, 0.25),
+    0 0 15px rgba(100, 150, 255, 0.3);
 }
 
-.cfg-input::placeholder { color: #64748b; font-weight: 400; }
+/* Lighter, readable placeholder */
+.cfg-input::placeholder { color: #94a3b8; font-weight: 500; }
 
 /* ── Suggestions dropdown (Floating crystal) ─────────────────────────── */
 .cfg-suggestions {
   display: none;
   position: absolute;
   width: calc(100% - 72px);
-  background: rgba(10, 10, 15, 0.4);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(10, 10, 15, 0.65);
+  border: 1px solid rgba(255,255,255,0.2);
   border-top: none;
   border-radius: 0 0 14px 14px;
   z-index: 10;
@@ -435,13 +438,13 @@
 .cfg-suggestion-item {
   padding: 14px 20px;
   font-size: 13.5px;
-  color: #e2e8f0;
+  color: #f1f5f9;
   cursor: pointer;
   transition: all 0.2s;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .cfg-suggestion-item:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.12);
   color: #ffffff;
   padding-left: 24px;
 }
@@ -466,34 +469,35 @@
   padding: 18px 24px;
   border-radius: 14px;
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.5;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 2px 8px rgba(0,0,0,0.6),
+    0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .cfg-status a {
   color: #ffffff;
   text-decoration: underline;
+  font-weight: 600;
 }
 
 .cfg-status-success {
-  border-top: 1px solid rgba(52, 211, 153, 0.5);
-  background: rgba(52, 211, 153, 0.03);
+  border-top: 1px solid rgba(52, 211, 153, 0.6);
   color: #a7f3d0;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 30px rgba(52, 211, 153, 0.1);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 30px rgba(52, 211, 153, 0.15);
 }
 .cfg-status-error {
-  border-top: 1px solid rgba(248, 113, 113, 0.5);
-  background: rgba(248, 113, 113, 0.03);
+  border-top: 1px solid rgba(248, 113, 113, 0.6);
   color: #fecaca;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 30px rgba(248, 113, 113, 0.1);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 30px rgba(248, 113, 113, 0.15);
 }
 .cfg-status-warn {
-  border-top: 1px solid rgba(251, 191, 36, 0.5);
-  background: rgba(251, 191, 36, 0.03);
+  border-top: 1px solid rgba(251, 191, 36, 0.6);
   color: #fde68a;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 30px rgba(251, 191, 36, 0.1);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 30px rgba(251, 191, 36, 0.15);
 }
 
 /* ── Modal Footer ──────────────────────────────────────────────────────── */
@@ -502,57 +506,57 @@
   justify-content: flex-end;
   gap: 16px;
   padding: 28px 36px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05); 
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.08); 
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
   position: relative;
   z-index: 2;
 }
 
 .cfg-btn-secondary {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  color: #cbd5e1;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e2e8f0;
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 14.5px;
+  font-weight: 600;
   padding: 14px 28px;
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 .cfg-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 15px rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .cfg-btn-primary {
-  /* Ethereal Glow Button */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255,255,255,0.25);
   border-top: 1px solid rgba(255,255,255,0.6);
-  border-left: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.35);
   color: #ffffff;
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 14.5px;
+  font-weight: 700;
   padding: 14px 32px;
   border-radius: 14px;
   cursor: pointer;
   box-shadow: 
     0 15px 30px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255,255,255,0.15),
+    0 0 20px rgba(255,255,255,0.2),
     inset 1px 1px 2px rgba(255, 255, 255, 0.3);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+  text-shadow: 0 0 12px rgba(255,255,255,0.5);
 }
 .cfg-btn-primary:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 100%);
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.7),
-    0 0 35px rgba(255,255,255,0.3),
+    0 0 35px rgba(255,255,255,0.35),
     inset 1px 1px 3px rgba(255, 255, 255, 0.6);
   transform: translateY(-2px) scale(1.02);
 }
