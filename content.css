@@ -1,11 +1,22 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Authentic Frosted Glassmorphism UI
+   Authentic Premium Glassmorphism (Noise + Blur + Gradient)
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-/* ── Floating Push Button (Glassmorphic pill) ────────────────────────────── */
+/* Base variables for the glass effect */
+:root {
+  --glass-bg: linear-gradient(135deg, rgba(60, 60, 60, 0.15) 0%, rgba(10, 10, 10, 0.25) 100%);
+  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-border-top: rgba(255, 255, 255, 0.15);
+  --glass-border-left: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --glass-blur: blur(24px) saturate(150%);
+}
+
+/* ── Floating Push Button ────────────────────────────── */
 .cfg-push-btn {
   position: fixed;
   bottom: 32px;
@@ -13,32 +24,35 @@
   z-index: 99999;
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.07);
+  padding: 14px 28px;
+  background: var(--glass-noise), var(--glass-bg);
+  background-color: rgba(20, 20, 20, 0.4);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  border: var(--glass-border);
+  border-top-color: var(--glass-border-top);
+  border-left-color: var(--glass-border-left);
   border-radius: 50px;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cfg-push-btn svg {
   fill: #ffffff;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .cfg-push-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(-3px);
+  background-color: rgba(40, 40, 40, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transform: translateY(-4px);
 }
 
 .cfg-push-btn:hover svg {
@@ -50,28 +64,28 @@
 }
 
 .cfg-push-btn.cfg-pushed {
-  background: rgba(16, 185, 129, 0.15) !important;
-  color: #34d399 !important;
-  border-color: rgba(52, 211, 153, 0.3) !important;
-  box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #000000 !important;
+  text-shadow: none !important;
+  border-color: rgba(255, 255, 255, 1) !important;
 }
 
 .cfg-push-btn.cfg-pushed svg {
-  fill: #34d399 !important;
+  fill: #000000 !important;
 }
 
-/* ── Modal Overlay (Heavy backdrop blur) ────────────────────────────────── */
+/* ── Modal Overlay ────────────────────────────────── */
 #cfg-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: cfg-overlay-in 0.3s ease;
+  animation: cfg-overlay-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cfg-overlay-in {
@@ -79,21 +93,24 @@
   to   { opacity: 1; }
 }
 
-/* ── Modal Card (Ultimate Frosted Glass Panel) ────────────────────────── */
+/* ── Modal Card (The main glass panel) ────────────────────────── */
 .cfg-modal {
-  width: 480px;
-  max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 48px);
+  width: 520px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 60px);
   overflow-y: auto;
-  background: rgba(18, 24, 38, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 24px;
-  box-shadow: 0 24px 64px 0 rgba(0, 0, 0, 0.5), inset 0 1px 2px 0 rgba(255, 255, 255, 0.15);
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  color: #e2e8f0;
-  backdrop-filter: blur(25px) saturate(190%);
-  -webkit-backdrop-filter: blur(25px) saturate(190%);
-  animation: cfg-modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--glass-noise), var(--glass-bg);
+  background-color: rgba(15, 15, 15, 0.45);
+  border: var(--glass-border);
+  border-top-color: var(--glass-border-top);
+  border-left-color: var(--glass-border-left);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #d1d5db;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  animation: cfg-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cfg-modal-in {
@@ -105,21 +122,22 @@
 .cfg-modal-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 24px 24px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 16px;
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cfg-modal-logo {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.06);
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .cfg-modal-logo svg {
@@ -128,133 +146,128 @@
 
 .cfg-modal-title {
   margin: 0;
-  font-size: 19px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 500;
   color: #ffffff;
-  letter-spacing: 0.3px;
+  letter-spacing: -0.5px;
 }
 
 .cfg-modal-subtitle {
-  margin: 2px 0 0;
-  font-size: 11.5px;
-  color: #94a3b8;
-  font-weight: 400;
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 300;
 }
 
 .cfg-modal-close {
   margin-left: auto;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
-  font-size: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #9ca3af;
+  font-size: 16px;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 .cfg-modal-close:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ── Modal Body ────────────────────────────────────────────────────────── */
 .cfg-modal-body {
-  padding: 24px;
+  padding: 24px 30px;
 }
 
 /* ── Problem Card ──────────────────────────────────────────────────────── */
 .cfg-problem-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: rgba(255, 255, 255, 0.03);
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
 }
 
 .cfg-problem-badge {
   background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .cfg-problem-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   color: #ffffff;
   line-height: 1.4;
 }
 
 .cfg-problem-meta {
   font-size: 12px;
-  color: #94a3b8;
+  color: #9ca3af;
   margin-top: 4px;
 }
 
 .cfg-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 255, 255, 0.05);
+  color: #d1d5db;
   font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 6px;
-  margin-right: 6px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
 }
 
 /* ── Section Label ─────────────────────────────────────────────────────── */
 .cfg-section-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #cbd5e1;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e5e7eb;
+  letter-spacing: 0.5px;
   margin-bottom: 12px;
 }
 
 /* ── Folder Mode Radios ────────────────────────────────────────────────── */
 .cfg-folder-mode {
   display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .cfg-radio-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.02);
+  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 500;
-  color: #94a3b8;
-  transition: all 0.2s ease;
+  font-weight: 400;
+  color: #9ca3af;
+  transition: all 0.3s ease;
   user-select: none;
 }
 
 .cfg-radio-label:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
 }
 
 .cfg-radio-label:has(input:checked) {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
@@ -264,67 +277,74 @@
 }
 
 .cfg-radio-custom {
-  width: 12px;
-  height: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
+  transition: all 0.2s;
 }
 
 .cfg-radio-label:has(input:checked) .cfg-radio-custom {
   border-color: #ffffff;
-  background: radial-gradient(circle, #ffffff 40%, transparent 50%);
+}
+
+.cfg-radio-label:has(input:checked) .cfg-radio-custom::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: #ffffff;
+  border-radius: 50%;
 }
 
 /* ── Inputs & Selects (Glass Fields) ──────────────────────────────────── */
 .cfg-input, .cfg-select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   color: #ffffff;
   font-family: inherit;
-  font-size: 13.5px;
-  padding: 11px 15px;
+  font-size: 14px;
+  padding: 14px 18px;
   outline: none;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .cfg-input:focus, .cfg-select:focus {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
 }
 
-.cfg-input::placeholder { color: #475569; }
+.cfg-input::placeholder { color: #6b7280; font-weight: 300; }
 
 /* ── Suggestions dropdown ─────────────────────────────────────────────── */
 .cfg-suggestions {
   display: none;
   position: absolute;
-  width: calc(480px - 48px);
-  max-width: calc(100vw - 80px);
-  background: rgba(18, 24, 38, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: calc(100% - 60px);
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-top: none;
   border-radius: 0 0 10px 10px;
   z-index: 10;
-  max-height: 140px;
+  max-height: 160px;
   overflow-y: auto;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
 }
 
 .cfg-suggestion-item {
-  padding: 10px 15px;
-  font-family: 'JetBrains Mono', monospace;
+  padding: 12px 18px;
   font-size: 13px;
-  color: #cbd5e1;
+  color: #d1d5db;
   cursor: pointer;
+  transition: background 0.2s;
 }
 .cfg-suggestion-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }
 
@@ -334,21 +354,23 @@
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px center;
+  background-position: right 18px center;
   padding-right: 40px;
 }
 .cfg-select option {
-  background: #0f131d;
+  background: #111;
   color: #ffffff;
 }
 
 /* ── Status Messages (Glass card styles) ──────────────────────────────── */
 .cfg-status {
-  margin-top: 18px;
-  padding: 12px 16px;
+  margin-top: 24px;
+  padding: 16px 20px;
   border-radius: 10px;
   font-size: 13.5px;
   line-height: 1.5;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cfg-status a {
@@ -357,77 +379,79 @@
 }
 
 .cfg-status-success {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #a7f3d0;
 }
 .cfg-status-error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
 }
 .cfg-status-warn {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #fde68a;
 }
 
 /* ── Modal Footer ──────────────────────────────────────────────────────── */
 .cfg-modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 20px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 16px;
+  padding: 24px 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cfg-btn-secondary {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d1d5db;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 24px;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 .cfg-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .cfg-btn-primary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 28px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transition: all 0.25s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
 }
 .cfg-btn-primary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+.cfg-btn-primary:active {
+  transform: translateY(0);
 }
 .cfg-btn-primary:disabled {
   background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(255, 255, 255, 0.02);
-  color: #475569;
+  border-color: rgba(255, 255, 255, 0.05);
+  color: #6b7280;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
 /* Scrollbar styling */
-.cfg-modal::-webkit-scrollbar { width: 6px; }
+.cfg-modal::-webkit-scrollbar { width: 8px; }
 .cfg-modal::-webkit-scrollbar-track { background: transparent; }
-.cfg-modal::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+.cfg-modal::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+.cfg-modal::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
