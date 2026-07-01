@@ -353,6 +353,9 @@
         problemName: problemTitle,
         ext,
         code,
+        problemUrl: window.location.href,
+        submissionId: submissionData?.submissionId,
+        contestId: submissionData?.contestId || problemInfo?.contestId,
         commitMsg: commitMsgInput
       }, resolve)
     );

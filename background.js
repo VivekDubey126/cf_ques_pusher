@@ -141,13 +141,34 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       try {
         const token = stored.githubToken;
         const repo = stored.githubRepo;
-        const { concept, problemId, problemName, ext, code, commitMsg } = request;
+        const { concept, problemId, problemName, ext, code, problemUrl, submissionId, contestId, commitMsg } = request;
 
         const safeProblemName = sanitizeFilename(problemName);
         const fileName = `${problemId}_${safeProblemName}.${ext}`;
         const filePath = concept ? `${concept}/${fileName}` : fileName;
 
-        const base64Content = btoa(unescape(encodeURIComponent(code)));
+        // Determine comment character based on file extension
+        let commentPrefix = '//';
+        if (['py', 'rb', 'pl'].includes(ext)) {
+          commentPrefix = '#';
+        } else if (ext === 'hs') {
+          commentPrefix = '--';
+        }
+
+        // Add problem link and submission link at the top of the file
+        let fileContent = '';
+        if (problemUrl) {
+          fileContent += `${commentPrefix} Problem Link: ${problemUrl}\n`;
+        }
+        if (contestId && submissionId) {
+          fileContent += `${commentPrefix} Submission Link: https://codeforces.com/contest/${contestId}/submission/${submissionId}\n`;
+        }
+        if (fileContent) {
+          fileContent += `\n`;
+        }
+        fileContent += code;
+
+        const base64Content = btoa(unescape(encodeURIComponent(fileContent)));
         const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
         // Check if file exists (to get SHA for update)
