@@ -1,31 +1,31 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Cinematic Refractive Glassmorphism (High Readability & Font Overhaul)
+   Cinematic Starry Space Glassmorphism (Comfortaa + Montserrat)
 ───────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Ultra-clear glass base with slightly darker backing for text contrast */
-  --glass-bg: rgba(10, 10, 12, 0.35); 
+  /* Starry sky texture + Deep teal/aquamarine space gradient */
+  --space-stars: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='stars'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' result='noise'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 9 -4 0 0 0 9 -4 0 0 0 9 -4 0 0 0 0 1' result='contrast'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23stars)'/%3E%3C/svg%3E");
+  --space-gradient: radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.45) 0%, rgba(10, 15, 29, 0.75) 60%, rgba(5, 5, 10, 0.95) 100%);
   
-  /* Specular reflections and refraction effects */
-  --glass-reflection: linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 18%, rgba(255,255,255,0) 100%);
-  --glass-refraction: linear-gradient(220deg, rgba(80, 150, 255, 0.12) 0%, rgba(250, 80, 255, 0.06) 100%);
-  --glass-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  /* Specular light reflections on the glass pane */
+  --glass-reflection: linear-gradient(125deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.03) 18%, rgba(255,255,255,0) 100%);
+  --glass-refraction: linear-gradient(220deg, rgba(80, 150, 255, 0.08) 0%, rgba(250, 80, 255, 0.04) 100%);
   
   /* Razor-sharp edges */
   --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-border-top: 1px solid rgba(255, 255, 255, 0.5);
-  --glass-border-left: 1px solid rgba(255, 255, 255, 0.2);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.4);
+  --glass-border-left: 1px solid rgba(255, 255, 255, 0.15);
   
   /* Ambient glowing shadows */
   --glass-shadow: 
     0 40px 100px rgba(0, 0, 0, 0.8),
-    0 0 80px rgba(100, 150, 255, 0.15),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.4);
+    0 0 80px rgba(16, 77, 90, 0.25),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.3);
     
-  --glass-blur: blur(60px) saturate(220%);
+  --glass-blur: blur(50px) saturate(200%);
 }
 
 /* ── Floating Push Button ────────────────────────────── */
@@ -38,7 +38,7 @@
   align-items: center;
   padding: 14px 28px;
   
-  background: var(--glass-reflection), var(--glass-refraction), var(--glass-noise), var(--glass-bg);
+  background: var(--space-stars), var(--glass-reflection), var(--space-gradient);
   color: #ffffff;
   
   border: var(--glass-border);
@@ -50,13 +50,13 @@
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
+  font-family: 'Comfortaa', cursive, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   cursor: pointer;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -68,12 +68,13 @@
 
 .cfg-push-btn:hover {
   background: 
+    var(--space-stars),
     linear-gradient(125deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%),
-    var(--glass-refraction), var(--glass-noise), rgba(30, 40, 50, 0.15);
+    radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.6) 0%, rgba(10, 15, 29, 0.8) 60%, rgba(5, 5, 10, 0.95) 100%);
   box-shadow: 
     0 50px 120px rgba(0, 0, 0, 0.9),
-    0 0 100px rgba(100, 150, 255, 0.3),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.7);
+    0 0 100px rgba(16, 77, 90, 0.4),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -99,7 +100,7 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: radial-gradient(circle at center, rgba(10, 10, 15, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
+  background: radial-gradient(circle at center, rgba(10, 10, 15, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
   backdrop-filter: blur(15px) saturate(120%);
   -webkit-backdrop-filter: blur(15px) saturate(120%);
   display: flex;
@@ -113,14 +114,14 @@
   to   { opacity: 1; }
 }
 
-/* ── Modal Card ────────────────────────── */
+/* ── Modal Card (Starry Space Glass Panel) ────────────────────────── */
 .cfg-modal {
   width: 540px;
   max-width: calc(100vw - 40px);
   max-height: calc(100vh - 60px);
   overflow-y: auto;
   
-  background: var(--glass-reflection), var(--glass-refraction), var(--glass-noise), var(--glass-bg);
+  background: var(--space-stars), var(--glass-reflection), var(--space-gradient);
   
   border: var(--glass-border);
   border-top: var(--glass-border-top);
@@ -131,7 +132,7 @@
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: 'Montserrat', system-ui, sans-serif;
   color: #f1f5f9; 
   
   animation: cfg-modal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -152,9 +153,9 @@
   position: absolute;
   top: 0; left: -100%;
   width: 50%; height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
   transform: skewX(-20deg);
-  animation: cfg-shine 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cfg-shine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none;
   border-radius: 28px;
 }
@@ -204,20 +205,23 @@
 
 .cfg-modal-title {
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 24px;
+  font-family: 'Comfortaa', cursive, sans-serif; /* Rounded space header font */
+  font-size: 23px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  letter-spacing: 0.25em; /* Cinematic wide tracking */
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.4);
 }
 
 .cfg-modal-subtitle {
   margin: 6px 0 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: #cbd5e1;
-  font-weight: 500;
+  font-weight: 600;
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
@@ -265,10 +269,11 @@
 }
 
 .cfg-problem-badge {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Comfortaa', cursive, sans-serif;
+  letter-spacing: 0.1em;
   background: rgba(255,255,255,0.1);
   color: #ffffff;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
   padding: 8px 14px;
   border-radius: 10px;
@@ -294,13 +299,14 @@
 }
 
 .cfg-tag {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Comfortaa', cursive, sans-serif;
   display: inline-block;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255,255,255,0.15);
   color: #ffffff;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
   padding: 4px 10px;
   border-radius: 6px;
   text-shadow: 0 1px 2px rgba(0,0,0,0.5);
@@ -308,11 +314,12 @@
 
 /* ── Section Label ──────────────────────────────────────── */
 .cfg-section-label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px;
+  font-family: 'Comfortaa', cursive, sans-serif;
+  font-size: 11px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   margin-bottom: 16px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
@@ -336,7 +343,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
   cursor: pointer;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   
   color: #e2e8f0; 
@@ -395,7 +402,7 @@
   border-radius: 14px;
   color: #ffffff;
   font-family: inherit;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 500;
   padding: 16px 20px;
   outline: none;
@@ -518,8 +525,10 @@
   border: 1px solid rgba(255,255,255,0.08);
   color: #e2e8f0;
   font-family: inherit;
-  font-size: 14.5px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   padding: 14px 28px;
   border-radius: 14px;
   cursor: pointer;
@@ -541,8 +550,10 @@
   border-left: 1px solid rgba(255,255,255,0.35);
   color: #ffffff;
   font-family: inherit;
-  font-size: 14.5px;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   padding: 14px 32px;
   border-radius: 14px;
   cursor: pointer;
