@@ -1,27 +1,25 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — popup.css
-   Cinematic Starry Space Glassmorphism (Space Grotesk + Outfit)
+   Ultra-Clean Cinematic Glass (NO NOISE, Pure 3D Refraction)
 ───────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --space-stars: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='stars'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' result='noise'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 9 -4 0 0 0 9 -4 0 0 0 9 -4 0 0 0 0 1' result='contrast'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23stars)'/%3E%3C/svg%3E");
-  --space-gradient: radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.25) 0%, rgba(10, 15, 29, 0.35) 60%, rgba(5, 5, 10, 0.45) 100%);
-  
-  --glass-reflection: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0) 100%);
+  --glass-bg: linear-gradient(135deg, rgba(30, 35, 45, 0.6) 0%, rgba(15, 20, 25, 0.7) 100%);
+  --glass-reflection: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.01) 30%, rgba(255,255,255,0) 100%);
   
   --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-border-top: 1px solid rgba(255, 255, 255, 0.6);
-  --glass-border-left: 1px solid rgba(255, 255, 255, 0.35);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.4);
+  --glass-border-left: 1px solid rgba(255, 255, 255, 0.2);
   
   --glass-shadow: 
-    0 40px 100px rgba(0, 0, 0, 0.75),
-    0 0 80px rgba(16, 77, 90, 0.3),
-    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.45),
-    inset -1px -1px 2px rgba(0, 0, 0, 0.5);
+    0 40px 80px rgba(0, 0, 0, 0.6),                  
+    0 0 40px rgba(0, 0, 0, 0.2),                    
+    inset 1px 1px 0px rgba(255, 255, 255, 0.2),   
+    inset -1px -1px 2px rgba(0, 0, 0, 0.4);            
     
-  --glass-blur: blur(35px) saturate(200%);
+  --glass-blur: blur(40px) saturate(180%);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +41,7 @@ body::-webkit-scrollbar {
 .popup-root {
   display: flex;
   flex-direction: column;
-  background: var(--space-stars), var(--glass-reflection), var(--space-gradient);
+  background: var(--glass-reflection), var(--glass-bg);
   min-height: 100vh;
   box-shadow: var(--glass-shadow);
   border: var(--glass-border);
@@ -51,7 +49,7 @@ body::-webkit-scrollbar {
   border-left: var(--glass-border-left);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  animation: popup-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: popup-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes popup-fade-in {
@@ -65,29 +63,26 @@ body::-webkit-scrollbar {
   align-items: center;
   gap: 14px;
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .popup-logo {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-top: 1px solid rgba(255,255,255,0.6);
-  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 
-    0 10px 20px rgba(0, 0, 0, 0.4),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .popup-logo svg {
   fill: #ffffff;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
 }
 
 .popup-title {
@@ -96,19 +91,14 @@ body::-webkit-scrollbar {
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+  letter-spacing: 0.05em;
 }
 
 .popup-subtitle {
   font-family: 'Outfit', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #cbd5e1;
+  color: #94a3b8;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
   margin-top: 2px;
 }
 
@@ -124,103 +114,75 @@ body::-webkit-scrollbar {
 /* ── Label ────────────────────────────────────────────────────────────────── */
 .cfg-label {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  color: #e2e8f0;
+  letter-spacing: 0.1em;
   margin-bottom: 8px;
   display: block;
 }
 
 /* ── Input Group ──────────────────────────────────────────────────────────── */
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* ── Text Input ───────────────────────────────────────────────────────────── */
 .cfg-input {
   width: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   color: #ffffff;
   font-family: 'Outfit', sans-serif;
   font-size: 14px;
-  font-weight: 500;
   padding: 12px 16px;
   outline: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 
-    inset 0 3px 10px rgba(0, 0, 0, 0.6),
-    0 1px 1px rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .cfg-input:focus {
-  background: rgba(0, 0, 0, 0.55);
-  border-color: rgba(100, 150, 255, 0.5);
-  box-shadow: 
-    inset 0 3px 10px rgba(0, 0, 0, 0.8),
-    0 0 0 2px rgba(100, 150, 255, 0.25),
-    0 0 15px rgba(100, 150, 255, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .cfg-input::placeholder {
-  color: #94a3b8;
-  font-weight: 400;
+  color: #64748b;
 }
 
 /* ── Primary Button ───────────────────────────────────────────────────────── */
 .cfg-btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-top: 1px solid rgba(255,255,255,0.6);
-  border-left: 1px solid rgba(255,255,255,0.35);
-  color: #ffffff;
+  background: #ffffff;
+  border: none;
+  color: #0f172a;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 14px 20px;
+  letter-spacing: 0.05em;
+  padding: 12px 20px;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 
-    0 10px 20px rgba(0, 0, 0, 0.4),
-    0 0 15px rgba(255,255,255,0.15),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.3);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cfg-btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 100%);
-  box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.6),
-    0 0 25px rgba(255,255,255,0.3),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+  background: #e2e8f0;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
 .cfg-btn-primary:active:not(:disabled) {
   transform: translateY(1px);
-  background: rgba(255,255,255,0.05);
-  box-shadow: 
-    0 5px 10px rgba(0, 0, 0, 0.4),
-    0 0 10px rgba(255,255,255,0.1);
 }
 
 .cfg-btn-primary:disabled {
-  background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(255,255,255,0.05);
-  color: #475569;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
   box-shadow: none;
-  transform: none;
-  text-shadow: none;
 }
 
 /* ── Status Messages ──────────────────────────────────────────────────────── */
@@ -230,11 +192,10 @@ body::-webkit-scrollbar {
   font-family: 'Outfit', sans-serif;
   font-size: 13px;
   font-weight: 500;
-  line-height: 1.4;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   margin-top: 8px;
-  display: none; /* hidden by default */
+  display: none;
 }
 
 .cfg-status.show {
@@ -253,23 +214,9 @@ body::-webkit-scrollbar {
   font-weight: 600;
 }
 
-.cfg-status.success {
-  border-top: 1px solid rgba(52, 211, 153, 0.6);
-  color: #a7f3d0;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(52, 211, 153, 0.1);
-}
-
-.cfg-status.error {
-  border-top: 1px solid rgba(248, 113, 113, 0.6);
-  color: #fecaca;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(248, 113, 113, 0.1);
-}
-
-.cfg-status.warn {
-  border-top: 1px solid rgba(251, 191, 36, 0.6);
-  color: #fde68a;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 20px rgba(251, 191, 36, 0.1);
-}
+.cfg-status.success { border-left: 4px solid #34d399; color: #a7f3d0; }
+.cfg-status.error { border-left: 4px solid #f87171; color: #fecaca; }
+.cfg-status.warn { border-left: 4px solid #fbbf24; color: #fde68a; }
 
 /* ── Footer Link ──────────────────────────────────────────────────────────── */
 .popup-footer {
