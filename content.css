@@ -1,31 +1,34 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    CF GitHub Pusher — content.css
-   Cinematic Starry Space Glassmorphism (Comfortaa + Montserrat)
+   Cinematic Starry Space Glassmorphism (High Readability & Refraction)
 ───────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Starry sky texture + Deep teal/aquamarine space gradient */
+  /* Starry sky texture + Deep teal/aquamarine space gradient (made highly transparent for refraction) */
   --space-stars: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='stars'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' result='noise'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 9 -4 0 0 0 9 -4 0 0 0 9 -4 0 0 0 0 1' result='contrast'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23stars)'/%3E%3C/svg%3E");
-  --space-gradient: radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.45) 0%, rgba(10, 15, 29, 0.75) 60%, rgba(5, 5, 10, 0.95) 100%);
   
-  /* Specular light reflections on the glass pane */
-  --glass-reflection: linear-gradient(125deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.03) 18%, rgba(255,255,255,0) 100%);
-  --glass-refraction: linear-gradient(220deg, rgba(80, 150, 255, 0.08) 0%, rgba(250, 80, 255, 0.04) 100%);
+  /* Highly transparent space gradient so the blur behind actually refracts the page content */
+  --space-gradient: radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.25) 0%, rgba(10, 15, 29, 0.35) 60%, rgba(5, 5, 10, 0.45) 100%);
   
-  /* Razor-sharp edges */
+  /* Diagonal reflection highlights */
+  --glass-reflection: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0) 100%);
+  
+  /* Razor-sharp edges with light refraction (border-image style gradients) */
   --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-border-top: 1px solid rgba(255, 255, 255, 0.4);
-  --glass-border-left: 1px solid rgba(255, 255, 255, 0.15);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.6);
+  --glass-border-left: 1px solid rgba(255, 255, 255, 0.35);
   
-  /* Ambient glowing shadows */
+  /* 3D refraction shadows & rim lights */
   --glass-shadow: 
-    0 40px 100px rgba(0, 0, 0, 0.8),
-    0 0 80px rgba(16, 77, 90, 0.25),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.3);
+    0 40px 100px rgba(0, 0, 0, 0.75),                  /* Soft outer shadow */
+    0 0 80px rgba(16, 77, 90, 0.3),                    /* Glowing space refraction aura */
+    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.45),   /* Specular rim light top-left */
+    inset -1px -1px 2px rgba(0, 0, 0, 0.5);            /* Shadow bottom-right */
     
-  --glass-blur: blur(50px) saturate(200%);
+  /* The blur value (35px is the sweet spot for clean lens refraction) */
+  --glass-blur: blur(35px) saturate(200%);
 }
 
 /* ── Floating Push Button ────────────────────────────── */
@@ -70,11 +73,11 @@
   background: 
     var(--space-stars),
     linear-gradient(125deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%),
-    radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.6) 0%, rgba(10, 15, 29, 0.8) 60%, rgba(5, 5, 10, 0.95) 100%);
+    radial-gradient(circle at 15% 95%, rgba(16, 77, 90, 0.35) 0%, rgba(10, 15, 29, 0.45) 60%, rgba(5, 5, 10, 0.55) 100%);
   box-shadow: 
-    0 50px 120px rgba(0, 0, 0, 0.9),
-    0 0 100px rgba(16, 77, 90, 0.4),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+    0 50px 120px rgba(0, 0, 0, 0.85),
+    0 0 100px rgba(16, 77, 90, 0.5),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.7);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -95,18 +98,17 @@
   filter: none;
 }
 
-/* ── Modal Overlay ────────────────────────────────── */
+/* ── Modal Overlay (NO BLUR so the modal's refraction is visible) ─────── */
 #cfg-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: radial-gradient(circle at center, rgba(10, 10, 15, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
-  backdrop-filter: blur(15px) saturate(120%);
-  -webkit-backdrop-filter: blur(15px) saturate(120%);
+  /* Darken the screen slightly, but do not blur it so the modal acts as a lens */
+  background: rgba(5, 5, 10, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: cfg-overlay-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cfg-overlay-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cfg-overlay-in {
@@ -205,11 +207,11 @@
 
 .cfg-modal-title {
   margin: 0;
-  font-family: 'Comfortaa', cursive, sans-serif; /* Rounded space header font */
+  font-family: 'Comfortaa', cursive, sans-serif;
   font-size: 23px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.25em; /* Cinematic wide tracking */
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   text-shadow: 0 2px 10px rgba(255,255,255,0.4);
 }
@@ -256,7 +258,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   border-left: 1px solid rgba(255, 255, 255, 0.15);
@@ -338,7 +340,7 @@
   gap: 12px;
   padding: 14px 20px;
   
-  background: rgba(0, 0, 0, 0.45); 
+  background: rgba(0, 0, 0, 0.35); 
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
@@ -368,7 +370,7 @@
   box-shadow: 
     0 10px 20px rgba(0, 0, 0, 0.4),
     0 0 20px rgba(255,255,255,0.2),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.45);
 }
 
 .cfg-radio-label input[type="radio"] {
@@ -396,7 +398,7 @@
 /* ── Inputs & Selects ────────────────────── */
 .cfg-input, .cfg-select {
   width: 100%;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.4); 
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 14px;
@@ -414,7 +416,7 @@
 }
 
 .cfg-input:focus, .cfg-select:focus {
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.55);
   border-color: rgba(100, 150, 255, 0.5);
   box-shadow: 
     inset 0 3px 10px rgba(0, 0, 0, 0.8),
@@ -479,7 +481,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
     inset 0 2px 8px rgba(0,0,0,0.6),
@@ -521,7 +523,7 @@
 }
 
 .cfg-btn-secondary {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.2);
   border: 1px solid rgba(255,255,255,0.08);
   color: #e2e8f0;
   font-family: inherit;
