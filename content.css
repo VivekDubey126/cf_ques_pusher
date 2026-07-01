@@ -1,0 +1,394 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CF GitHub Pusher — content.css
+   Styles for the floating button and the push modal
+───────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Floating Push Button ─────────────────────────────────────────────────── */
+.cfg-push-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(35, 134, 54, 0.4), 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: 0.3px;
+}
+
+.cfg-push-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(35, 134, 54, 0.55), 0 4px 12px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #2ea043, #3fb950);
+}
+
+.cfg-push-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cfg-push-btn.cfg-pushed {
+  background: linear-gradient(135deg, #1f6feb, #388bfd) !important;
+  box-shadow: 0 4px 24px rgba(31, 111, 235, 0.45) !important;
+}
+
+/* ── Modal Overlay ────────────────────────────────────────────────────────── */
+#cfg-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(1, 4, 9, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: cfg-overlay-in 0.2s ease;
+}
+
+@keyframes cfg-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal Card ───────────────────────────────────────────────────────────── */
+.cfg-modal {
+  width: 480px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #e6edf3;
+  animation: cfg-modal-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cfg-modal-in {
+  from { opacity: 0; transform: scale(0.9) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Modal Header ─────────────────────────────────────────────────────────── */
+.cfg-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #21262d;
+}
+
+.cfg-modal-logo {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #238636, #2ea043);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cfg-modal-title {
+  margin: 0 0 2px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #f0f6fc;
+  line-height: 1.2;
+}
+
+.cfg-modal-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #7d8590;
+}
+
+.cfg-modal-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #7d8590;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+.cfg-modal-close:hover { background: #21262d; color: #e6edf3; }
+
+/* ── Modal Body ───────────────────────────────────────────────────────────── */
+.cfg-modal-body {
+  padding: 20px;
+}
+
+/* ── Problem Card ─────────────────────────────────────────────────────────── */
+.cfg-problem-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+}
+
+.cfg-problem-badge {
+  background: linear-gradient(135deg, #1f6feb, #388bfd);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cfg-problem-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e6edf3;
+  line-height: 1.3;
+}
+
+.cfg-problem-meta {
+  font-size: 12px;
+  color: #7d8590;
+  margin-top: 3px;
+}
+
+.cfg-tag {
+  display: inline-block;
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+/* ── Section Label ────────────────────────────────────────────────────────── */
+.cfg-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+/* ── Folder Mode Radios ───────────────────────────────────────────────────── */
+.cfg-folder-mode {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.cfg-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b949e;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  user-select: none;
+}
+
+.cfg-radio-label:has(input:checked) {
+  border-color: #388bfd;
+  background: #1c2432;
+  color: #e6edf3;
+}
+
+.cfg-radio-label input[type="radio"] {
+  display: none;
+}
+
+.cfg-radio-custom {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #30363d;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: border-color 0.15s;
+  position: relative;
+}
+
+.cfg-radio-label:has(input:checked) .cfg-radio-custom {
+  border-color: #388bfd;
+  background: radial-gradient(circle, #388bfd 50%, transparent 51%);
+}
+
+/* ── Input ────────────────────────────────────────────────────────────────── */
+.cfg-input {
+  width: 100%;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #e6edf3;
+  font-family: 'Inter', monospace, system-ui;
+  font-size: 13px;
+  padding: 9px 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.cfg-input:focus {
+  border-color: #388bfd;
+  box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.15);
+}
+
+.cfg-input::placeholder { color: #484f58; }
+
+/* ── Suggestions dropdown ─────────────────────────────────────────────────── */
+.cfg-suggestions {
+  display: none;
+  position: absolute;
+  width: calc(480px - 40px);
+  max-width: calc(100vw - 72px);
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.cfg-suggestion-item {
+  padding: 8px 13px;
+  font-size: 13px;
+  color: #8b949e;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+.cfg-suggestion-item:hover { background: #21262d; color: #e6edf3; }
+
+/* ── Select ───────────────────────────────────────────────────────────────── */
+.cfg-select {
+  width: 100%;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #e6edf3;
+  font-family: 'Inter', system-ui;
+  font-size: 13px;
+  padding: 9px 13px;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%237d8590'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.cfg-select:focus { border-color: #388bfd; }
+.cfg-select option { background: #0d1117; }
+
+/* ── Status ───────────────────────────────────────────────────────────────── */
+.cfg-status {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cfg-status a { color: #388bfd; text-decoration: none; }
+.cfg-status a:hover { text-decoration: underline; }
+
+.cfg-status-success {
+  background: rgba(35, 134, 54, 0.15);
+  border: 1px solid rgba(35, 134, 54, 0.4);
+  color: #3fb950;
+}
+.cfg-status-error {
+  background: rgba(248, 81, 73, 0.12);
+  border: 1px solid rgba(248, 81, 73, 0.35);
+  color: #f85149;
+}
+.cfg-status-warn {
+  background: rgba(210, 153, 34, 0.12);
+  border: 1px solid rgba(210, 153, 34, 0.35);
+  color: #d29922;
+}
+
+/* ── Modal Footer ─────────────────────────────────────────────────────────── */
+.cfg-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #21262d;
+}
+
+.cfg-btn-secondary {
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-family: 'Inter', system-ui;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.cfg-btn-secondary:hover { background: #30363d; color: #e6edf3; }
+
+.cfg-btn-primary {
+  background: linear-gradient(135deg, #238636, #2ea043);
+  border: 1px solid rgba(240,246,252,0.1);
+  color: #fff;
+  font-family: 'Inter', system-ui;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(35,134,54,0.3);
+  transition: all 0.2s;
+}
+.cfg-btn-primary:hover {
+  background: linear-gradient(135deg, #2ea043, #3fb950);
+  box-shadow: 0 4px 14px rgba(35,134,54,0.45);
+  transform: translateY(-1px);
+}
+.cfg-btn-primary:disabled {
+  background: #21262d;
+  border-color: #30363d;
+  color: #484f58;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Scrollbar styling for modal */
+.cfg-modal::-webkit-scrollbar { width: 6px; }
+.cfg-modal::-webkit-scrollbar-track { background: transparent; }
+.cfg-modal::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }

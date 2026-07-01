@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "CF GitHub Pusher",
+  "version": "2.0.0",
+  "description": "Push Codeforces solutions to your private GitHub repo, organized by concept (digit-dp, diameter, bitmask, etc.)",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.codeforces.com/*",
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://codeforces.com/problemset/problem/*/*",
+        "*://codeforces.com/contest/*/problem/*",
+        "*://codeforces.com/gym/*/problem/*",
+        "*://codeforces.com/group/*/contest/*/problem/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "CF GitHub Pusher"
+  }
+}
