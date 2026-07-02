@@ -146,8 +146,8 @@
           </div>
 
           <!-- Commit message -->
-          <div class="cfg-section-label" style="margin-top:14px">Commit Message <span style="font-weight:400;color:#8b949e">(optional)</span></div>
-          <input type="text" id="cfg-commit-msg" class="cfg-input" placeholder="Auto-generated if empty"/>
+          <div class="cfg-section-label" style="margin-top:14px">Problem Description / Notes <span style="font-weight:400;color:#8b949e">(what did you learn / approach)</span></div>
+          <textarea id="cfg-commit-msg" class="cfg-input" rows="3" placeholder="e.g. Rerooting DP — compute subtree sums, then reroot to get global answer in O(n)" style="resize:vertical;font-family:inherit"></textarea>
 
           <!-- Status area -->
           <div id="cfg-status" class="cfg-status" style="display:none"></div>
@@ -156,7 +156,7 @@
         <div class="cfg-modal-footer">
           <button class="cfg-btn-secondary" id="cfg-cancel-btn">Cancel</button>
           <button class="cfg-btn-primary" id="cfg-push-confirm-btn">
-            <span id="cfg-push-btn-text">Push Solution</span>
+            <span id="cfg-push-btn-text">Push Note</span>
           </button>
         </div>
       </div>
@@ -306,56 +306,38 @@
 
     // Disable button and show loading
     pushBtn.disabled = true;
-    btnText.textContent = 'Fetching code...';
+    btnText.textContent = 'Preparing note...';
     statusEl.style.display = 'none';
 
-    // Fetch source code
-    let code = '';
-    let ext = 'cpp';
+    // Build a markdown note file — no code fetching needed
+    const problemLink = window.location.href;
+    const userNotes = commitMsgInput; // reuse the notes field
+
+    const noteLines = [
+      `# ${problemTitle}`,
+      ``,
+      `**Problem Link:** ${problemLink}`,
+    ];
 
     if (submissionData && submissionData.submissionId) {
       const cId = submissionData.contestId || problemInfo?.contestId;
       const sId = submissionData.submissionId;
-      const url = `https://codeforces.com/contest/${cId}/submission/${sId}`;
-      
-      try {
-        const r = await fetch(url);
-        const html = await r.text();
-        const match = html.match(/<pre[^>]*id="program-source-text"[^>]*>([\s\S]*?)<\/pre>/i);
-        
-        if (match) {
-          const txt = match[1]
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&')
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, "'")
-            .replace(/&#x2F;/g, '/');
-          
-          code = txt;
-          ext = submissionData.ext || 'cpp';
-        } else {
-          showStatus('cfg-status', 'Could not extract source code. Make sure you are logged in to Codeforces.', 'error');
-          pushBtn.disabled = false;
-          btnText.textContent = 'Push Solution';
-          return;
-        }
-      } catch (err) {
-        showStatus('cfg-status', `Fetch error: ${err.toString()}`, 'error');
-        pushBtn.disabled = false;
-        btnText.textContent = 'Push Solution';
-        return;
-      }
-    } else {
-      showStatus('cfg-status',
-        'No accepted submission found. Make sure your CF handle is set and you have an accepted submission for this problem.',
-        'error');
-      pushBtn.disabled = false;
-      btnText.textContent = 'Push Solution';
-      return;
+      noteLines.push(`**Submission:** https://codeforces.com/contest/${cId}/submission/${sId}`);
+      noteLines.push(`**Language:** ${submissionData.language || 'N/A'}`);
     }
 
-    btnText.textContent = 'Pushing to GitHub...';
+    noteLines.push(``);
+
+    if (userNotes) {
+      noteLines.push(`## Notes`);
+      noteLines.push(``);
+      noteLines.push(userNotes);
+    }
+
+    const code = noteLines.join('\n');
+    const ext = 'md';
+
+    btnText.textContent = 'Pushing note...';
 
     // Push to GitHub
     const pushRes = await new Promise(resolve =>
@@ -369,12 +351,14 @@
         problemUrl: window.location.href,
         submissionId: submissionData?.submissionId,
         contestId: submissionData?.contestId || problemInfo?.contestId,
-        commitMsg: commitMsgInput
+        commitMsg: userNotes
+          ? `[CF] ${problemId} - ${problemTitle} | ${concept || 'root'}`
+          : `[CF] ${problemId} - ${problemTitle}`
       }, resolve)
     );
 
     pushBtn.disabled = false;
-    btnText.textContent = 'Push Solution';
+    btnText.textContent = 'Push Note';
  
     if (pushRes && pushRes.success) {
       // Save concept to local storage for future autocomplete
