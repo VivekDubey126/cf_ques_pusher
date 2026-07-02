@@ -7,6 +7,130 @@
 (function () {
   'use strict';
 
+  // ── DSA / CP Tag Dictionary ──────────────────────────────────────────────
+  const DSA_TAGS = [
+    'dp','dynamic-programming','digit-dp','bitmask-dp','interval-dp','tree-dp',
+    'rerooting-dp','dp-on-trees','knapsack','sos-dp','profile-dp','broken-profile-dp',
+    'bfs','dfs','graphs','dijkstra','bellman-ford','floyd-warshall','topological-sort',
+    'scc','bridges','articulation-points','mst','kruskal','prim','bipartite','matching',
+    'trees','binary-tree','bst','lca','euler-tour','hld','heavy-light-decomposition',
+    'centroid-decomposition','small-to-large','dsu-on-tree',
+    'segment-tree','fenwick-tree','bit','sparse-table','sqrt-decomposition',
+    'mo-algorithm','persistent-segment-tree','lazy-propagation',
+    'binary-search','ternary-search','two-pointers','sliding-window',
+    'greedy','sorting','intervals','activity-selection','constructive',
+    'math','number-theory','gcd','lcm','modular-arithmetic','sieve','euler-totient',
+    'matrix-exponentiation','combinatorics','game-theory','nim','sprague-grundy',
+    'geometry','convex-hull','line-sweep',
+    'strings','kmp','z-function','suffix-array','suffix-automaton',
+    'aho-corasick','hashing','palindrome','manacher','rabin-karp',
+    'stack','queue','deque','priority-queue','heap','trie','dsu','union-find',
+    'backtracking','recursion','divide-and-conquer','brute-force',
+    'simulation','implementation','ad-hoc','prefix-sum','difference-array',
+    'interactive','offline','randomized','flow','max-flow','min-cut',
+    'network-flow','2-sat','xor','bitmask','meet-in-the-middle',
+  ];
+
+  // Keywords in problem title → suggested tags
+  const KEYWORD_MAP = {
+    'tree':['trees','dfs','dp-on-trees'],
+    'path':['graphs','bfs','dijkstra'],
+    'capital':['trees','rerooting-dp'],
+    'root':['trees','rerooting-dp'],
+    'reroot':['rerooting-dp'],
+    'digit':['digit-dp'],
+    'bitmask':['bitmask-dp','bitmask'],
+    'mask':['bitmask-dp','bitmask'],
+    'knapsack':['knapsack','dp'],
+    'segment':['segment-tree'],
+    'range':['segment-tree','prefix-sum'],
+    'query':['segment-tree','fenwick-tree','mo-algorithm'],
+    'prime':['sieve','number-theory'],
+    'gcd':['math','gcd','number-theory'],
+    'xor':['xor','bitmask'],
+    'cycle':['graphs','dfs'],
+    'shortest':['dijkstra','bfs','graphs'],
+    'longest':['dp','binary-search'],
+    'subsequence':['dp'],
+    'substring':['strings','hashing','kmp'],
+    'palindrome':['palindrome','manacher','dp'],
+    'sort':['sorting','greedy'],
+    'interval':['greedy','intervals','segment-tree'],
+    'flow':['max-flow','network-flow'],
+    'match':['matching','bipartite'],
+    'lca':['lca','trees'],
+    'ancestor':['lca','trees'],
+    'euler':['euler-tour','trees'],
+    'game':['game-theory'],
+    'nim':['nim','game-theory'],
+    'convex':['convex-hull','geometry'],
+    'hull':['convex-hull','geometry'],
+    'trie':['trie','strings'],
+    'suffix':['suffix-array','suffix-automaton'],
+    'binary':['binary-search'],
+    'matrix':['matrix-exponentiation','math'],
+    'power':['matrix-exponentiation','math'],
+    'combination':['combinatorics','math'],
+    'permutation':['combinatorics','math'],
+    'dsu':['dsu','union-find'],
+    'union':['dsu','union-find'],
+    'component':['dfs','graphs','dsu'],
+    'connected':['bfs','graphs','dsu'],
+    'spanning':['mst','kruskal','prim'],
+    'topological':['topological-sort','graphs'],
+    'bridge':['bridges','graphs'],
+    'articulation':['articulation-points','graphs'],
+    'strongly':['scc','graphs'],
+    'meet':['meet-in-the-middle'],
+    'offline':['offline','mo-algorithm'],
+    'sqrt':['sqrt-decomposition'],
+    'string':['strings'],
+    'prefix':['prefix-sum'],
+    'difference':['difference-array'],
+    'number':['number-theory','math'],
+    'count':['dp','combinatorics'],
+    'ways':['dp','combinatorics'],
+    'greedy':['greedy'],
+    'sum':['prefix-sum','dp'],
+  };
+
+  // ── Levenshtein distance ──────────────────────────────────────────────────
+  function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array.from({length: m + 1}, (_, i) =>
+      Array.from({length: n + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0));
+    for (let i = 1; i <= m; i++)
+      for (let j = 1; j <= n; j++)
+        dp[i][j] = a[i-1] === b[j-1]
+          ? dp[i-1][j-1]
+          : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    return dp[m][n];
+  }
+
+  // ── Spell-check: find closest DSA tags for a mistyped word ───────────────
+  function getSpellSuggestions(word) {
+    if (!word || word.length < 3) return [];
+    const lower = word.toLowerCase().replace(/\s+/g, '-');
+    if (DSA_TAGS.includes(lower)) return [];
+    const threshold = Math.max(2, Math.floor(lower.length / 3));
+    return DSA_TAGS
+      .map(tag => ({ tag, dist: levenshtein(lower, tag) }))
+      .filter(x => x.dist <= threshold)
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 3)
+      .map(x => x.tag);
+  }
+
+  // ── Recommend tags from problem title keywords ────────────────────────────
+  function getRecommendedTags(title) {
+    const lower = title.toLowerCase();
+    const matched = new Set();
+    for (const [kw, tags] of Object.entries(KEYWORD_MAP)) {
+      if (lower.includes(kw)) tags.forEach(t => matched.add(t));
+    }
+    return [...matched].slice(0, 8);
+  }
+
   // ── Parse problem info from current URL ──────────────────────────────────
   function parseProblemFromURL() {
     const url = window.location.href;
@@ -133,16 +257,30 @@
           <!-- New folder input -->
           <div id="cfg-new-folder-section">
             <input type="text" id="cfg-new-folder-input" class="cfg-input"
-              placeholder="e.g. digit-dp, diameter, bitmask-dp…"
+              placeholder="e.g. digit-dp, rerooting-dp, bitmask…"
               autocomplete="off" spellcheck="false"/>
             <div class="cfg-suggestions" id="cfg-suggestions"></div>
+            <div id="cfg-spell-hint" class="cfg-spell-hint" style="display:none"></div>
           </div>
 
-          <!-- Existing folder dropdown -->
+          <!-- Recommended tags from problem title -->
+          <div id="cfg-recommended-section" style="display:none;margin-top:12px">
+            <div class="cfg-rec-label">Suggested for this problem</div>
+            <div id="cfg-tag-chips" class="cfg-tag-chips"></div>
+          </div>
+
+          <!-- Existing folder search -->
           <div id="cfg-existing-folder-section" style="display:none">
-            <select id="cfg-folder-select" class="cfg-select">
-              <option value="">Loading folders…</option>
-            </select>
+            <div style="position:relative">
+              <input type="text" id="cfg-existing-search" class="cfg-input"
+                placeholder="Search saved concepts…"
+                autocomplete="off" spellcheck="false"/>
+              <div class="cfg-suggestions cfg-existing-list" id="cfg-existing-suggestions"></div>
+            </div>
+            <div id="cfg-existing-selected" class="cfg-existing-selected" style="display:none">
+              <span id="cfg-existing-selected-text"></span>
+              <button class="cfg-existing-clear" id="cfg-existing-clear">✕</button>
+            </div>
           </div>
 
           <!-- Commit message -->
@@ -180,27 +318,139 @@
       });
     });
 
-    // ── Load locally saved concept tags for autocomplete ──
+    // ── Load saved concepts + show recommendations + spell-check ────────────
     chrome.storage.local.get(['savedConcepts'], (stored) => {
-      const select = document.getElementById('cfg-folder-select');
       const suggestions = document.getElementById('cfg-suggestions');
-      const newInput = document.getElementById('cfg-new-folder-input');
-      const concepts = stored.savedConcepts || [];
+      const newInput    = document.getElementById('cfg-new-folder-input');
+      const spellHint   = document.getElementById('cfg-spell-hint');
+      const recSection  = document.getElementById('cfg-recommended-section');
+      const chipContainer = document.getElementById('cfg-tag-chips');
+      const concepts    = stored.savedConcepts || [];
 
-      if (concepts.length > 0) {
-        select.innerHTML = concepts.map(f => `<option value="${f}">${f}</option>`).join('');
-      } else {
-        select.innerHTML = '<option value="">No saved concepts yet</option>';
+      // ── Existing folder search ──
+      const existingSearch   = document.getElementById('cfg-existing-search');
+      const existingSugg     = document.getElementById('cfg-existing-suggestions');
+      const existingSelected = document.getElementById('cfg-existing-selected');
+      const existingSelText  = document.getElementById('cfg-existing-selected-text');
+      const existingClear    = document.getElementById('cfg-existing-clear');
+
+      function renderExistingList(filter) {
+        const matches = concepts.filter(f =>
+          f.toLowerCase().includes(filter.toLowerCase())
+        );
+        if (matches.length === 0) {
+          existingSugg.innerHTML = '<div class="cfg-suggestion-item" style="color:#64748b;cursor:default">No saved concepts found</div>';
+        } else {
+          existingSugg.innerHTML = matches.map(f =>
+            `<div class="cfg-suggestion-item" data-value="${f}">${
+              filter ? f.replace(new RegExp(`(${filter})`, 'gi'), '<mark class="cfg-match">$1</mark>') : f
+            }</div>`
+          ).join('');
+        }
+        existingSugg.style.display = 'block';
       }
 
-      // Autocomplete for new folder input from saved concepts
-      newInput.addEventListener('input', () => {
-        const val = newInput.value.toLowerCase();
-        const matches = concepts.filter(f => f.toLowerCase().includes(val) && val.length > 0);
-        suggestions.innerHTML = matches.map(f =>
-          `<div class="cfg-suggestion-item" data-value="${f}">${f}</div>`
+      function selectExistingConcept(value) {
+        existingSearch.value = value;
+        existingSelText.textContent = value;
+        existingSelected.style.display = 'flex';
+        existingSugg.style.display = 'none';
+      }
+
+      existingSearch.addEventListener('focus', () => renderExistingList(existingSearch.value));
+      existingSearch.addEventListener('input', () => {
+        existingSelected.style.display = 'none';
+        renderExistingList(existingSearch.value);
+      });
+      existingSugg.addEventListener('click', e => {
+        const item = e.target.closest('.cfg-suggestion-item[data-value]');
+        if (item) selectExistingConcept(item.dataset.value);
+      });
+      existingClear.addEventListener('click', () => {
+        existingSearch.value = '';
+        existingSelected.style.display = 'none';
+        existingSearch.focus();
+      });
+      // Hide list when clicking outside
+      document.addEventListener('click', e => {
+        if (!existingSearch.contains(e.target) && !existingSugg.contains(e.target)) {
+          existingSugg.style.display = 'none';
+        }
+      });
+
+      // Show list when radio switches to 'existing'
+      document.querySelectorAll('input[name="folderMode"]').forEach(r => {
+        r.addEventListener('change', () => {
+          if (r.value === 'existing' && r.checked) {
+            setTimeout(() => { existingSearch.focus(); renderExistingList(''); }, 50);
+          }
+        });
+      });
+
+      // ── Show title-based tag recommendations ──
+      const recommended = getRecommendedTags(problemTitle);
+      if (recommended.length > 0) {
+        chipContainer.innerHTML = recommended.map(tag =>
+          `<button class="cfg-chip" data-value="${tag}">${tag}</button>`
         ).join('');
-        suggestions.style.display = matches.length ? 'block' : 'none';
+        recSection.style.display = 'block';
+        chipContainer.addEventListener('click', e => {
+          const chip = e.target.closest('.cfg-chip');
+          if (chip) {
+            newInput.value = chip.dataset.value;
+            // Highlight selected chip
+            chipContainer.querySelectorAll('.cfg-chip').forEach(c => c.classList.remove('cfg-chip-active'));
+            chip.classList.add('cfg-chip-active');
+            suggestions.style.display = 'none';
+            spellHint.style.display = 'none';
+          }
+        });
+      }
+
+      // ── Live autocomplete: saved concepts + DSA dictionary ──
+      newInput.addEventListener('input', () => {
+        const val = newInput.value.trim().toLowerCase();
+
+        // Autocomplete: saved concepts first, then DSA_TAGS
+        if (val.length > 0) {
+          const fromSaved = concepts.filter(f => f.toLowerCase().includes(val));
+          const fromDict  = DSA_TAGS.filter(t => t.includes(val) && !fromSaved.includes(t));
+          const matches   = [...fromSaved, ...fromDict].slice(0, 8);
+          suggestions.innerHTML = matches.map(f => {
+            const isSaved = concepts.includes(f);
+            return `<div class="cfg-suggestion-item" data-value="${f}">
+              ${f}${isSaved ? ' <span class="cfg-saved-badge">saved</span>' : ''}
+            </div>`;
+          }).join('');
+          suggestions.style.display = matches.length ? 'block' : 'none';
+        } else {
+          suggestions.style.display = 'none';
+        }
+
+        // ── Spell-check: show Did you mean hints ──
+        if (val.length >= 3 && !DSA_TAGS.includes(val)) {
+          const spells = getSpellSuggestions(val);
+          if (spells.length > 0) {
+            spellHint.innerHTML = `Did you mean: ${spells.map(s =>
+              `<span class="cfg-spell-option" data-value="${s}">${s}</span>`
+            ).join(' · ')}`;
+            spellHint.style.display = 'block';
+          } else {
+            spellHint.style.display = 'none';
+          }
+        } else {
+          spellHint.style.display = 'none';
+        }
+      });
+
+      // Click a spell suggestion to accept it
+      spellHint.addEventListener('click', e => {
+        const opt = e.target.closest('.cfg-spell-option');
+        if (opt) {
+          newInput.value = opt.dataset.value;
+          spellHint.style.display = 'none';
+          suggestions.style.display = 'none';
+        }
       });
 
       suggestions.addEventListener('click', e => {
@@ -208,6 +458,7 @@
         if (item) {
           newInput.value = item.dataset.value;
           suggestions.style.display = 'none';
+          spellHint.style.display = 'none';
         }
       });
     });
@@ -293,7 +544,11 @@
         return;
       }
     } else if (mode === 'existing') {
-      concept = document.getElementById('cfg-folder-select').value;
+      concept = document.getElementById('cfg-existing-search').value.trim();
+      if (!concept) {
+        showStatus('cfg-status', 'Please select or search for an existing folder.', 'warn');
+        return;
+      }
     }
     // mode === 'root' → concept stays ''
 
